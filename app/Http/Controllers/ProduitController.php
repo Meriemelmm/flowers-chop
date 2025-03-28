@@ -6,6 +6,8 @@ use App\Models\Produit;
 use App\Models\TypeFleur;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validate;
+ use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 
 class ProduitController extends Controller
 {
@@ -14,7 +16,9 @@ class ProduitController extends Controller
      */
     public function index()
     {
-        //
+        $products = Produit::all();
+        
+         return view('gestionProduct',['products'=>$products]);
     }
 
     /**
@@ -31,27 +35,34 @@ class ProduitController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    { dd($request->file('product_image'));
+    {
      
         $validated=  $request->validate([
             'product_name' => 'required|string|max:255',
             'product_description'=>'required|string|max:255',
             'product_stock'=>'required|integer|min:0',
             'product_prix'=>'required|numeric|min:0',
-            'product_image'=>'required|string',
+            'product_image'=>'required|image|mimes:png,jpg,jpeg,svg',
             'type_id'=>'required',
             
          
         ]);
+       $filename= $request->file('product_image')->store('ProductImge','public');
 
       
         $product= Produit::create(['product_name'=>$request->product_name,
         'product_description'=>$request->product_description,
         'product_stock'=>$request->product_stock,
         'product_prix'=>$request ->product_prix,
-        'product_image'=>$request->product_image,
+        'product_image'=>$filename,
         'type_id'=>$request->type_id,'occassion'=>$request->occassion
     ]);
+    if($product){
+        return redirect()->route('index.gestion')->with('success', 'Produit cree avec succès !');
+    }
+    else{
+        return "errors" ;
+    }
    
         
     }
@@ -83,8 +94,17 @@ class ProduitController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Produit $produit)
+    public function destroy($produit)
     {
-        //
+      $product= Produit::find($produit);
+      if($product){
+        $product->delete();
+        return redirect()->route('index.gestion')->with('success', 'Produit supprime avec succès !');
+  }
+  else{
+      return " nexiste pas";
+  }
+       
+        
     }
 }
