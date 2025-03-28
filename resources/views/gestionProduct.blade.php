@@ -40,7 +40,8 @@
                                 <th class="p-3 border border-gray-200">Nom</th>
                                 <th class="p-3 border border-gray-200">Prix</th>
                                 <th class="p-3 border border-gray-200">Stock</th>
-                                <th class="p-3 border border-gray-200">Actions</th>
+                                <th class="p-3 border border-gray-200">type</th>
+                                <th class="p-3 border border-gray-200">actions</th>
                             </tr>
                         </thead>
                         <tbody> 
@@ -51,10 +52,12 @@
                                 <td class="p-3 border border-gray-200">{{ $product->product_name }}</td>
                                 <td class="p-3 border border-gray-200">{{ $product->product_prix}} €</td>
                                 <td class="p-3 border border-gray-200">{{ $product->product_stock }}</td>
+                                <td class="p-3 border border-gray-200">{{ $product->types->type_name }}</td>
+
                           
                                 <td class="p-3 border border-gray-200">
-                                    <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fas fa-edit"></i></a>
-                                    <form action="{{ route('products.destroy',['produit'=> $product->id]) }" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');">
+                                    <a href="{{route('edit.product',['produit'=>$product->id])}}" class="text-blue-600 hover:text-blue-800"><i class="fas fa-edit"></i></a>
+                                    <form action="{{ route('products.destroy',['produit'=> $product->id]) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');">
                                     @csrf
                                     @method('DELETE')
                                 <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded"><i class="fas fa-trash"></i></button>

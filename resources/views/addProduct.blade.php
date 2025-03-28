@@ -51,7 +51,7 @@
             <div class="flex-1 flex flex-col">                <main class="flex-1">
                     <div class="py-6">
                         <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">                            <div class="flex items-center justify-between">
-                                <h1 class="text-2xl font-semibold text-gray-900">Ajouter un Nouveau Produit</h1>
+                                <h1 class="text-2xl font-semibold text-gray-900">{{ isset($product) ? 'Modifier produit' : 'Ajouter produit' }}</h1>
                                 <button class="!rounded-button bg-custom px-4 py-2 text-white text-sm font-medium hover:bg-indigo-700">                                    Retour au tableau de bord
                                 </button>
                             </div>      
@@ -70,53 +70,63 @@
 @endif
 
 <!-- Create Post Form -->                      <div class="mt-8">
-                                <form action="{{route('store')}}"  enctype="multipart/form-data"method="POST" class="space-y-6 bg-white shadow-sm rounded-lg p-6">                                    <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                                <form action="{{isset($product)?route('update.product',['produit'=>$product->id]):route('store')}} "  
+                              method="POST" class="space-y-6 bg-white shadow-sm rounded-lg p-6">  
+                              @if(isset($product))
+        @method('PUT')
+    @endif                                  <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                                 @csrf  <div class="sm:col-span-4">                                            <label for="product_name" class="block text-sm font-medium text-gray-700">
                                                 Nom du produit
                                             </label>                                            <div class="mt-1">
-                                                <input type="text" name="product_name" id="product_name" class="!rounded-button shadow-sm block w-full sm:text-sm border-gray-300 focus:ring-custom focus:border-custom" placeholder="Ex: Bouquet de Roses Rouges">                                            </div>
+                                                <input type="text"   value="{{$product->product_name}}"name="product_name" id="product_name" class="!rounded-button shadow-sm block w-full sm:text-sm border-gray-300 focus:ring-custom focus:border-custom" placeholder="Ex: Bouquet de Roses Rouges">                                            </div>
                                         </div>
 
                                         <div class="sm:col-span-6">                                            <label for="description" class="block text-sm font-medium text-gray-700">
                                                 Description
                                             </label>                                            <div class="mt-1">
-                                                <textarea id="description" name="product_description" rows="4" class="!rounded-button shadow-sm block w-full sm:text-sm border border-gray-300 focus:ring-custom focus:border-custom" placeholder="Décrivez votre produit en détail..."></textarea>
+                                                <textarea id="description" value="{{$product->product_description}}" name="product_description" rows="4" class="!rounded-button shadow-sm block w-full sm:text-sm border border-gray-300 focus:ring-custom focus:border-custom" placeholder="Décrivez votre produit en détail...">{{$product->product_description}}</textarea>
                                             </div>
                                         </div>
 
                                         <div class="sm:col-span-2">                                            <label for="price" class="block text-sm font-medium text-gray-700">
                                                 Prix (€)
                                             </label>                                            <div class="mt-1">
-                                                <input type="number" name="product_prix" id="price" class="!rounded-button shadow-sm block w-full sm:text-sm border-gray-300 focus:ring-custom focus:border-custom" placeholder="0.00">                                            </div>
+                                                <input type="number"   value="{{$product->product_prix}}"name="product_prix" id="price" class="!rounded-button shadow-sm block w-full sm:text-sm border-gray-300 focus:ring-custom focus:border-custom" placeholder="0.00">                                            </div>
                                         </div>
 
                                         <div class="sm:col-span-2">                                            <label for="stock" class="block text-sm font-medium text-gray-700">
                                                 Stock
                                             </label>                                            <div class="mt-1">
-                                                <input type="number" name="product_stock" id="stock" class="!rounded-button shadow-sm block w-full sm:text-sm border-gray-300 focus:ring-custom focus:border-custom" placeholder="0">                                            </div>
+                                                <input type="number" value="{{$product->product_stock}}" name="product_stock" id="stock" class="!rounded-button shadow-sm block w-full sm:text-sm border-gray-300 focus:ring-custom focus:border-custom" placeholder="0">                                            </div>
                                         </div>
 
                                         <div class="sm:col-span-3">                                            <label for="flower_type" class="block text-sm font-medium text-gray-700">
                                                 Type de fleur
                                             </label>                                            <div class="mt-1">
                                                 <select id="flower_type" name="type_id" class="!rounded-button shadow-sm block w-full sm:text-sm border-gray-300 focus:ring-custom focus:border-custom">                                                    <option>Roses</option>
-                                                    @foreach  ($types as $type) <option value=" {{$type->id}}">{{$type->type_name}}</option> @endforeach
-                                                    <option>Lys</option>
-                                                    <option>Orchidées</option>
+                                                @foreach($types as $type)
+                                   <option value="{{ $type->id }}" 
+                                     @if(old('type_id', $product->type_id) == $type->id) selected @endif>
+                                     {{ $type->type_name }}
+                                           </option>
+                                       @endforeach
+
+                                                     
+                                                   
                                                 </select>
                                             </div>
                                         </div>                                        <div class="sm:col-span-3">
                                             <label for="occasion" class="block text-sm font-medium text-gray-700">                                                Occasion
                                             </label>
                                             <div class="mt-1">       
-                                     <select id="occasion" name="occassion" class="!rounded-button shadow-sm block w-full sm:text-sm border-gray-300 focus:ring-custom focus:border-custom">  
-                                     <option value=""></option>  
-                                                <option>Anniversaire</option>
-                                                   
-                                                                                         <option value="Mariage" name="">Mariage</option>
-                                                    <option value="Saint-Valentin">Saint-Valentin</option>
-                                                    <option value="Deuil">Deuil</option>
-                                                </select>
+                                            <select id="occasion" name="occassion" class="!rounded-button shadow-sm block w-full sm:text-sm border-gray-300 focus:ring-custom focus:border-custom">  
+    <option value=""></option>  
+    <option value="Anniversaire" @if(old('occassion', $product->occassion) == "Anniversaire") selected @endif>Anniversaire</option>
+    <option value="Mariage" @if(old('occassion', $product->occassion) == "Mariage") selected @endif>Mariage</option>
+    <option value="Saint-Valentin" @if(old('occassion', $product->occassion) == "Saint-Valentin") selected @endif>Saint-Valentin</option>
+    <option value="Deuil" @if(old('occassion', $product->occassion) == "Deuil") selected @endif>Deuil</option>
+</select>
+
                                             </div>
                                         </div>                                        <div class="sm:col-span-6">
                                             <label class="block text-sm font-medium text-gray-700">                                                Photos du produit
@@ -125,7 +135,7 @@
                                                     <i class="fas fa-cloud-upload-alt text-gray-400 text-3xl mb-3"></i>
                                                     <div class="flex text-sm text-gray-600">
                                                         <label for="file-upload" class="relative cursor-pointer bg-white rounded-md font-medium text-custom hover:text-indigo-500">                                                            <span>Télécharger un fichier</span>
-                                                            <input id="file-upload" name="product_image" type="file" class="sr-only" >                                                        </label>
+                                                            <input id="file-upload" name="product_image" type="file" class="sr" >                                                        </label>
                                                       
                                                     </div>
                                                                                                    </div>
@@ -147,7 +157,7 @@
                                     <div class="pt-5">
                                         <div class="flex justify-end">                                            <button type="button" class="!rounded-button bg-white py-2 px-4 border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-50">                                                Annuler
                                             </button>
-                                            <button type="submit" class="!rounded-button ml-3 bg-custom py-2 px-4 border border-transparent text-sm font-medium text-white hover:bg-indigo-700">                                                Ajouter le produit
+                                            <button type="submit" class="!rounded-button ml-3 bg-custom py-2 px-4 border border-transparent text-sm font-medium text-white hover:bg-indigo-700">   {{ isset($product) ? 'Modifier' : 'Ajouter' }}
                                             </button>
                                         </div>                                    </div>
                                 </form>

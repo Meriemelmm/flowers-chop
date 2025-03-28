@@ -80,7 +80,8 @@ class ProduitController extends Controller
      */
     public function edit(Produit $produit)
     {
-        //
+        $types=TypeFleur::all();
+      return view ('addProduct',['product'=>$produit,'types'=>$types]);
     }
 
     /**
@@ -88,17 +89,45 @@ class ProduitController extends Controller
      */
     public function update(Request $request, Produit $produit)
     {
-        //
+        
+        $validated=  $request->validate([
+            'product_name' => 'required|string|max:255',
+            'product_description'=>'required|string|max:255',
+            'product_stock'=>'required|integer|min:0',
+            'product_prix'=>'required|numeric|min:0',
+            'product_image'=>'required|image|mimes:png,jpg,jpeg,svg',
+            'type_id'=>'required',
+            
+         
+        ]);
+        dd($request->all());
+       $filename= $request->file('product_image')->store('ProductImge','public');
+
+      
+        $product= Produit::update(['product_name'=>$request->product_name,
+        'product_description'=>$request->product_description,
+        'product_stock'=>$request->product_stock,
+        'product_prix'=>$request ->product_prix,
+        'product_image'=>$filename,
+        'type_id'=>$request->type_id,'occassion'=>$request->occassion
+    ]);
+    if($product){
+        return redirect()->route('index.gestion')->with('success', 'Produit cree avec succès !');
+    }
+    else{
+        return "errors" ;
+    }
+   
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($produit)
+    public function destroy( Produit $produit)
     {
-      $product= Produit::find($produit);
-      if($product){
-        $product->delete();
+     
+      if($produit){
+        $produit->delete();
         return redirect()->route('index.gestion')->with('success', 'Produit supprime avec succès !');
   }
   else{
