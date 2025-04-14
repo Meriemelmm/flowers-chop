@@ -13,4 +13,10 @@ protected $table='produits';
     public function types(){
         return $this->belongsTo(TypeFleur::class,'type_id');
     }
+    public function Category(){
+        return $this->belongTo(Category::class);
+    }
+    public function images(){
+        return $this->hasMany(ImageProduct::class)
+    }
 }
