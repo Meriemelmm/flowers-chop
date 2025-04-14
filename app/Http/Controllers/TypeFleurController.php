@@ -12,7 +12,8 @@ class TypeFleurController extends Controller
      */
     public function index()
     {
-        //
+         $Types=TypeFleur::all();
+         return view('TypeFleur',['types'=>$types]);
     }
 
     /**
@@ -28,7 +29,16 @@ class TypeFleurController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'type_name' => ['required', 'string', 'regex:/^[A-Za-zÀ-ÿ\s]+$/', 'max:255'],
+        ]);
+        
+        $type= TypeFleur::create(['type_name'=>$validated['type_name']]);
+        if($type){
+
+            return redirect()->route('TypeFleur.index')->with('success', 'Produit cree avec succès !');
+
+        }
     }
 
     /**
@@ -52,7 +62,20 @@ class TypeFleurController extends Controller
      */
     public function update(Request $request, TypeFleur $typeFleur)
     {
-        //
+        if($typeFleur){
+             $validated = $request->validate([
+            'type_name' => ['required', 'string', 'regex:/^[A-Za-zÀ-ÿ\s]+$/', 'max:255'],
+        ]);
+        
+        $typeFleur->type_name=$validated['type_name'];
+        $update=$typeFleur->save();
+        if($update){
+
+            return redirect()->route('TypeFleur.index')->with('success', 'Produit modifié avec succès !');
+
+        }
+        }
+       
     }
 
     /**
@@ -60,6 +83,10 @@ class TypeFleurController extends Controller
      */
     public function destroy(TypeFleur $typeFleur)
     {
-        //
+        if($typeFleur){
+              $typeFleur->delete();
+        return redirect()->route('TypeFleur.index ')->with('success', 'Produit supprimé avec succès !');
+        }
+      
     }
 }

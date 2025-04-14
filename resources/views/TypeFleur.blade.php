@@ -82,21 +82,21 @@
         <!-- Main Content -->
         <div class="main-content">
             <div class="main-header">
-                <h1>Gestion des Catégories</h1>
+                <h1>Gestion des types</h1>
                 <div class="header-actions">
                     <div class="search-box">
                         <i class="fas fa-search"></i>
-                        <input type="text" placeholder="Rechercher une catégorie...">
+                        <input type="text" placeholder="Rechercher un type...">
                     </div>
-                    <button class="btn btn-primary" onclick="openCategoryModal()">
-                        <i class="fas fa-plus"></i> Nouvelle Catégorie
+                    <button class="btn btn-primary" onclick="opentypeModal()">
+                        <i class="fas fa-plus"></i> Nouvelle type de fleur
                     </button>
                 </div>
             </div>
         
             <div class="card">
                 <div class="card-header">
-                    <h2>Liste des Catégories</h2>
+                    <h2>Liste des types de fleur</h2>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -111,18 +111,18 @@
                             </thead>
                             <tbody>
                            
-                            @foreach ($categories as $category)
+                            @foreach ($types as $type)
                                 <tr>
                                  
-                                    <td>{{$category->category_name}}</td>
+                                    <td>{{$type->type_name}}</td>
                                     
                                     <td>
 
                                         <button class="btn-action btn-edit"  title="Modifier"   
-                                         onclick="editCategory({{ $category->id }}, '{{ $category->category_name }}', '{{ $category->description }}')">
+                                         onclick="editTypes({{ $type->id }}, '{{ $type->type_name }}')">
                                             <i class="fas fa-edit"></i>
                                         </button>
-                                        <form action="{{route('categories.destroy',['category'=>$category->id])}}" method="POST"onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette categorie ?');">
+                                        <form action="{{route('TypeFleur.destroy',['type'=>$type->id])}}" method="POST"onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce type ?');">
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn-action btn-delete" title="Supprimer">
@@ -148,11 +148,11 @@
         <div class="modal" id="categoryModal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3> categorie</h3>
-                    <button class="close-modal" onclick="closeCategoryModal()">&times;</button>
+                    <h3>  ajouter type</h3>
+                    <button class="close-modal" onclick="closetypeModal()">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST"id="category-form" action="{{route('categories.store')}}">
+                    <form method="POST"id="type-form" action="{{route('TypeFleur.store')}}">
                     @csrf
                   
                    
@@ -161,11 +161,11 @@
                  
                         <div class="form-group">
                             <label for="category-name">Nom de la catégorie</label>
-                            <input type="text" id="category-name" placeholder="Entrez le nom" name="category_name">
+                            <input type="text" id="category-name" placeholder="Entrez le nom" name="type_name">
                         </div>
                        
                         <div class="form-actions">
-                            <button class="btn btn-secondary" type="button" onclick="closeCategoryModal()">Annuler</button>
+                            <button class="btn btn-secondary" type="button" onclick="closetypeModal()">Annuler</button>
                             <button class="btn btn-primary" type="submit">Enregistrer</button>
                         </div>
                     </form>
@@ -178,24 +178,24 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h3> categorie</h3>
-                    <button class="close-modal" onclick="closeCategoryUpdateModal()">&times;</button>
+                    <button class="close-modal" onclick="closetypeUpdateModal()">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST"id="category_form" action="">
+                    <form method="POST"id="type_form" action="">
                     @csrf
                     @method('PATCH')
                   
                    
 
-                    <input type="hidden" name="id" id="category_id" value="{{ $category->id }}">
+                    <input type="hidden" name="id" id="type_id" value="{{ $type->id }}">
                  
                         <div class="form-group">
-                            <label for="category-name">Nom de la catégorie</label>
-                            <input type="text" id="category_name" placeholder="Entrez le nom" name="category_name">
+                            <label for="type-name">Nom de type</label>
+                            <input type="text" id="type_name" placeholder="Entrez le nom" name="type_name">
                         </div>
                        
                         <div class="form-actions">
-                            <button class="btn btn-secondary" type="button" onclick="closeCategoryUpdateModal()">Annuler</button>
+                            <button class="btn btn-secondary" type="button" onclick="closetypeUpdateModal()">Annuler</button>
                             <button class="btn btn-primary" type="submit">Enregistrer</button>
                         </div>
                     </form>
@@ -206,7 +206,7 @@
         </div>
         
         <script>
-            function openCategoryModal() {
+            function opentypeModal() {
                 document.getElementById("categoryModal").style.display = "flex";
             }
         
@@ -215,22 +215,22 @@
             }
 
             // update:
-            function openCategoryUpdateModal() {
+            function opentypeUpdateModal() {
                 document.getElementById("categoryUpdateModal").style.display = "flex";
             }
         
-            function closeCategoryUpdateModal() {
+            function closetypeUpdateModal() {
                 document.getElementById("categoryUpdateModal").style.display = "none";
             }
           
 function editCategory(id, name) {
-    document.getElementById('category_id').value = id;
-    document.getElementById('category_name').value = name;
-     form = document.getElementById('category_form');
-    form.action = `/categories/${id}`; 
+    document.getElementById('type_id').value = id;
+    document.getElementById('type_name').value = name;
+     form = document.getElementById('type_form');
+    form.action = `/TypeFleur/${id}`; 
     
 
-    openCategoryUpdateModal(); 
+    opentypeUpdateModal(); 
 }
 </script>
 

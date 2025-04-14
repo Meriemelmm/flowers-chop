@@ -55,17 +55,29 @@ $categories=Category::all();
      */
     public function edit($category)
     {
-        $categoryId= Category::find($category);
-        return view('categories',['CategoryId'=>$categoryId]);
+       
+
         
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $category)
     {
         
+        $categoryId= Category::find($category);
+        $validated = $request->validate([
+            'category_name' => ['required', 'string', 'regex:/^[A-Za-zÀ-ÿ\s]+$/', 'max:255'],
+        ]);
+        $categoryId->category_name=$validated['category_name'];
+        $update=$categoryId->save();
+        if($update){
+
+            return redirect()->route('categories.index')->with('success', 'Produit modifier avec succès !');
+
+        }
+
       
     }
 

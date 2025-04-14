@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
  use App\Http\Controllers\Controller;
 use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TypeFleurController;
 
 Route::get('register',[UserController::class,'showRegister'])->name('register');
 Route::post('register',[UserController::class,'register'])->name('register.store');
@@ -25,6 +26,7 @@ Route::post('register',[UserController::class,'register'])->name('register.store
 
 //  category:
 Route::resource('categories', CategoryController::class);
+Route::resource('TypeFleur', TypeFleurController::class);
 
 
 
