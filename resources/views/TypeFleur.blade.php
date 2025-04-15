@@ -122,7 +122,7 @@
                                          onclick="editTypes({{ $type->id }}, '{{ $type->type_name }}')">
                                             <i class="fas fa-edit"></i>
                                         </button>
-                                        <form action="{{route('TypeFleur.destroy',['type'=>$type->id])}}" method="POST"onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce type ?');">
+                                        <form action="{{route('TypeFleur.destroy',['TypeFleur'=>$type->id])}}" method="POST"onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce type ?');">
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn-action btn-delete" title="Supprimer">
@@ -145,7 +145,7 @@
         </div>
         
         <!-- Modal Ajout Catégorie -->
-        <div class="modal" id="categoryModal">
+        <div class="modal" id="typeModal">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3>  ajouter type</h3>
@@ -174,10 +174,10 @@
         </div>
 
         <!-- update modal -->
-        <div class="modal" id="categoryUpdateModal">
+        <div class="modal" id="typeUpdateModal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3> categorie</h3>
+                    <h3> modifier Type</h3>
                     <button class="close-modal" onclick="closetypeUpdateModal()">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -187,7 +187,7 @@
                   
                    
 
-                    <input type="hidden" name="id" id="type_id" value="{{ $type->id }}">
+                    <input type="hidden" name="id" id="type_id" >
                  
                         <div class="form-group">
                             <label for="type-name">Nom de type</label>
@@ -207,27 +207,27 @@
         
         <script>
             function opentypeModal() {
-                document.getElementById("categoryModal").style.display = "flex";
+                document.getElementById("typeModal").style.display = "flex";
             }
         
             function closeCategoryModal() {
-                document.getElementById("categoryModal").style.display = "none";
+                document.getElementById("typeModal").style.display = "none";
             }
 
             // update:
             function opentypeUpdateModal() {
-                document.getElementById("categoryUpdateModal").style.display = "flex";
+                document.getElementById("typeUpdateModal").style.display = "flex";
             }
         
             function closetypeUpdateModal() {
-                document.getElementById("categoryUpdateModal").style.display = "none";
+                document.getElementById("typeUpdateModal").style.display = "none";
             }
           
-function editCategory(id, name) {
-    document.getElementById('type_id').value = id;
+function editTypes(TypeFleur, name) {
+    document.getElementById('type_id').value = TypeFleur;
     document.getElementById('type_name').value = name;
      form = document.getElementById('type_form');
-    form.action = `/TypeFleur/${id}`; 
+    form.action = `/TypeFleur/${TypeFleur}`; 
     
 
     opentypeUpdateModal(); 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Produit;
 use App\Models\TypeFleur;
+use App\Models\Category;
+use App\Models\ImageProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validate;
  use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,9 +18,12 @@ class ProduitController extends Controller
      */
     public function index()
     {
+
+        $types= TypeFleur::all();
+        $categories=Category::all();
         $products = Produit::all();
         
-         return view('gestionProduct',['products'=>$products]);
+         return view('Product',['products'=>$products,'types'=>$types,'categories'=>$categories]);
     }
 
     /**
@@ -26,46 +31,61 @@ class ProduitController extends Controller
      */
     public function create()
     {
-        $types=TypeFleur::all();
+        // $types=TypeFleur::all();
 
-         return view('addProduct',['types'=>$types]);
+        //  return view('addProduct',['types'=>$types]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-     
-        $validated=  $request->validate([
-            'product_name' => 'required|string|max:255',
-            'product_description'=>'required|string|max:255',
-            'product_stock'=>'required|integer|min:0',
-            'product_prix'=>'required|numeric|min:0',
-            'product_image'=>'required|image|mimes:png,jpg,jpeg,svg',
-            'type_id'=>'required',
-            
-         
-        ]);
-       $filename= $request->file('product_image')->store('ProductImge','public');
 
-      
-        $product= Produit::create(['product_name'=>$request->product_name,
-        'product_description'=>$request->product_description,
-        'product_stock'=>$request->product_stock,
-        'product_prix'=>$request ->product_prix,
-        'product_image'=>$filename,
-        'type_id'=>$request->type_id,'occassion'=>$request->occassion
+public function store(Request $request)
+{
+    $validated = $request->validate([
+        'product_name' => 'required|string|max:255',
+        'product_description' => 'required|string|max:255',
+        'product_stock' => 'required|integer|min:0',
+        'product_prix' => 'required|numeric|min:0',
+        'product_image' => 'required||image|mimes:png,jpg,jpeg,svg',
+        'type_ids' => 'required|array',
+        'type_ids.*' => 'exists:types,id',
+        'images' => 'required|array',
+        'images.*' => 'required|image|mimes:png,jpg,jpeg,svg',
+        'category_id' => 'required|exists:categories,id',
     ]);
-    if($product){
-        return redirect()->route('index.gestion')->with('success', 'Produit cree avec succès !');
-    }
-    else{
-        return "errors" ;
-    }
    
-        
+
+
+    $filename = $request->file('product_image')->store('ProductImage', 'public');
+
+    $product = Produit::create([
+        'product_name' => $request->product_name,
+        'product_description' => $request->product_description,
+        'product_stock' => $request->product_stock,
+        'product_prix' => $request->product_prix,
+        'product_image' => $filename,
+        'category_id' => $request->category_id
+    ]);
+    
+
+    if ($product) {
+        $product->types()->attach($request->type_ids);
+
+        foreach ($request->images as $image) {
+            $fileImage = $image->store('image', 'public');
+            ImageProduct::create([
+                'product_id' => $product->id,
+                'image' => $fileImage
+            ]);
+        }
+
+        return redirect()->route('Product.index')->with('success', 'Produit supprime avec succès !');
+    } else {
+        return "errors";
     }
+}
+
 
     /**
      * Display the specified resource.

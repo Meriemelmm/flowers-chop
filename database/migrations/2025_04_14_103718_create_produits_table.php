@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('product_stock');       
             $table->decimal('product_prix', 8, 2);   
             $table->string('product_image');         
-            $table->foreignId('type_id')->constrained('types')->onDelete('cascade');  
+           
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');  
         });
     }

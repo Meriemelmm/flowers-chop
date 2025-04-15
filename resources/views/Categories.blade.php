@@ -187,7 +187,7 @@
                   
                    
 
-                    <input type="hidden" name="id" id="category_id" value="{{ $category->id }}">
+                    <input type="hidden" name="id" id="category_id" >
                  
                         <div class="form-group">
                             <label for="category-name">Nom de la catégorie</label>

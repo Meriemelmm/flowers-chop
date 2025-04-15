@@ -13,7 +13,10 @@ class TypeFleurController extends Controller
     public function index()
     {
          $Types=TypeFleur::all();
-         return view('TypeFleur',['types'=>$types]);
+         if($Types){
+            return view('TypeFleur',['types'=>$Types]);  
+         }
+       
     }
 
     /**
@@ -60,15 +63,15 @@ class TypeFleurController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, TypeFleur $typeFleur)
+    public function update(Request $request, TypeFleur $TypeFleur)
     {
-        if($typeFleur){
+        if($TypeFleur){
              $validated = $request->validate([
             'type_name' => ['required', 'string', 'regex:/^[A-Za-zÀ-ÿ\s]+$/', 'max:255'],
         ]);
         
-        $typeFleur->type_name=$validated['type_name'];
-        $update=$typeFleur->save();
+        $TypeFleur->type_name=$validated['type_name'];
+        $update=$TypeFleur->save();
         if($update){
 
             return redirect()->route('TypeFleur.index')->with('success', 'Produit modifié avec succès !');
@@ -81,11 +84,13 @@ class TypeFleurController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(TypeFleur $typeFleur)
+    public function destroy(TypeFleur $TypeFleur)
     {
-        if($typeFleur){
-              $typeFleur->delete();
-        return redirect()->route('TypeFleur.index ')->with('success', 'Produit supprimé avec succès !');
+        
+        if($TypeFleur){
+              $TypeFleur->delete();
+         return redirect()->route('TypeFleur.index')->with('success', 'Produit supprimé avec succès !');
+      
         }
       
     }
