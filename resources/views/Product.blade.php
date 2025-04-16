@@ -953,12 +953,9 @@ body {
                                     </div>
                                     <div class="form-group">
                                         <label for="productCategory">Catégorie</label>
-                                        <select id="productCategory" name="category_id" required>
+                                        <select id="Category" name="category_id" required>
                                         <option value="">Sélectionner une catégorie</option>
-                                        @foreach ($categories as $category)
-                                          
-                                            <option value="{{$category->id}}"name="category_id">{{$category->category_name}}</option>
-                                            @endforeach
+                                      
                                         </select> 
                                     </div>
                                 </div>
@@ -974,12 +971,9 @@ body {
                                 </div>
                                 <div class="form-group">
                                 <label for="productCategory">type des fleurs </label>
-                                        <select name="type_ids[]" multiple required>
+                                        <select name="type_ids[]"id="Types"  multiple required>
                                             <option value="">Sélectionner une type</option>
-                                            @foreach( $types as $type)
-                                            <option value="{{$type->id}}" >{{$type->type_name}}</option>
-                                       
-                                            @endforeach
+                                            
                                           
                                         </select>
                                     </div>
@@ -1030,6 +1024,21 @@ body {
 
         const updateProductModal = document.getElementById('updateProductModal');
         const updateProductForm = document.getElementById('updateProductForm');
+        const select = document.getElementById("Category");
+        const typeSelect = document.getElementById("Types");
+
+categories.forEach(category => {
+    const option = document.createElement("option");
+    option.value = category.id;
+    option.textContent = category.category_name;
+    select.appendChild(option);
+});
+types.forEach(type => {
+        const option = document.createElement("option");
+        option.value = type.id;
+        option.textContent = type.type_name;
+        typeSelect.appendChild(option);
+    });
 
 function update(){
     const updateProductForm = document.getElementById('updateProductForm');
