@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fleurissima - Gestion des Produits</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
        /* Reset and Base Styles */
 * {
@@ -732,6 +734,7 @@ body {
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach($products as $product)
                                     <tr>
                                         <td>#FL001</td>
                                         <td>
@@ -739,17 +742,24 @@ body {
                                                 <img src="https://images.unsplash.com/photo-1526047932273-341f2a7631f9?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="Rose bouquet">
                                             </div>
                                         </td>
-                                        <td>Bouquet de roses rouges</td>
+                                        <td>{{$product->product_name}}</td>
                                         <td>Bouquets</td>
-                                        <td>€45.00</td>
-                                        <td>12</td>
+                                        <td>€{{$product->product_prix}}</td>
+                                        <td>{{$product->product_stock}}</td>
                                         <td><span class="badge badge-success">En stock</span></td>
                                         <td>
-                                            <button class="btn-action btn-edit"><i class="fas fa-edit"></i></button>
-                                            <button class="btn-action btn-delete"><i class="fas fa-trash"></i></button>
+                                        <button class="btn-action btn-delete" onclick='update()'>
+                                        <i class="fas fa-edit"></i>
+</button>
+                                        <!-- <a href="{{route('Product.edit',['Product'=>$product->id])}}" class="btn-action btn-edit"><i class="fas fa-edit"></i></a> -->
+                                             <form action="{{route('Product.destroy',['Product'=>$product->id] )}}"method="POST"onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette categorie ?');">
+                                             @csrf
+                                             @method('DELETE')
+                                            <button class="btn-action btn-delete"><i class="fas fa-trash"></i></button></form>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    @endforeach
+                                    <!-- <tr>
                                         <td>#FL002</td>
                                         <td>
                                             <div class="product-img">
@@ -816,9 +826,10 @@ body {
                                             <button class="btn-action btn-edit"><i class="fas fa-edit"></i></button>
                                             <button class="btn-action btn-delete"><i class="fas fa-trash"></i></button>
                                         </td>
-                                    </tr>
+                                    </tr> -->
                                 </tbody>
                             </table>
+                            {{$products->links()}}
                         </div>
                         <div class="table-footer">
                             <div class="table-info">
@@ -920,14 +931,130 @@ body {
                             </form>
                         </div>
                     </div>
+                 </div> 
+        
+
+
+
+                <div class="modal" id="updateProductModal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>modifier  produit</h3>
+                            <button class="close-modal"onClick=" closeModal() ">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="updateProductForm" method="POST" action="" enctype="multipart/form-data">
+                                @csrf
+                                @method('PATCH')
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="productName">Nom du produit</label>
+                                        <input type="text" id="product_name"name="product_name" placeholder="entrer le nom de produit " required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="productCategory">Catégorie</label>
+                                        <select id="productCategory" name="category_id" required>
+                                        <option value="">Sélectionner une catégorie</option>
+                                        @foreach ($categories as $category)
+                                          
+                                            <option value="{{$category->id}}"name="category_id">{{$category->category_name}}</option>
+                                            @endforeach
+                                        </select> 
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="productPrice">Prix (€)</label>
+                                        <input type="number"  name="product_prix"id="productPrice" step="0.01" min="0" placeholder="Ex: 45.00" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="productStock">Quantité en stock</label>
+                                        <input type="number" name="product_stock" id="productStock" min="0" placeholder="Ex: 12" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                <label for="productCategory">type des fleurs </label>
+                                        <select name="type_ids[]" multiple required>
+                                            <option value="">Sélectionner une type</option>
+                                            @foreach( $types as $type)
+                                            <option value="{{$type->id}}" >{{$type->type_name}}</option>
+                                       
+                                            @endforeach
+                                          
+                                        </select>
+                                    </div>
+                                    <!-- hh -->
+                                     
+                                <div class="form-group">
+                                    <label for="productDescription">Description</label>
+                                    <textarea id="productDescription" rows="3" name="product_description"placeholder="Description du produit..."></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="productImage">Image du produit</label>
+                                    <div class="file-upload">
+                                        <input type="file" id="productImage"  name="product_image"accept="image/*">
+                                        <label for="productImage" class="file-upload-label">
+                                            <i class="fas fa-cloud-upload-alt"></i>
+                                            <span>Choisir une image</span>
+                                        </label>
+                                    </div>
+                                </div>
+                               
+                                 <div class="form-group">
+                                    <label for="productImage">collection des images </label>
+                                    <div class="file-upload">
+                                        <input type="file" id="productImage" name="images[]"  multiple accept="image/*">
+                                        <label for="productImage" class="file-upload-label">
+                                            <i class="fas fa-cloud-upload-alt"></i>
+                                            <span>Choisir des images</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="button" class="btn btn-secondary close-modal">Annuler</button>
+                                    <button type="submit" class="btn btn-primary">Ajouter le produit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </main>
     </div>
 
     <script>
-        // JavaScript sera inséré ici<script>
-    // Sélection des éléments du DOM
+        const categories = @json($categories);
+        
+        const types = @json($types);
+
+        const updateProductModal = document.getElementById('updateProductModal');
+        const updateProductForm = document.getElementById('updateProductForm');
+
+function update(){
+    const updateProductForm = document.getElementById('updateProductForm');
+    updateProductModal.style.display="flex";
+   
+    console.log(updateProductForm);
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     const addProductBtn = document.getElementById('addProductBtn');
     const addProductModal = document.getElementById('addProductModal');
     const closeModalBtns = document.querySelectorAll('.close-modal');
@@ -941,6 +1068,7 @@ body {
     // Fonction pour fermer le modal
     function closeModal() {
         addProductModal.style.display = 'none';
+         updateProductModal.style.display = 'none';
         document.body.style.overflow = 'auto'; // Rétablit le défilement
     }
     
@@ -976,6 +1104,20 @@ body {
     //     // Fermer le modal
     //     closeModal();
     // });
+    function editProduct(Product) {
+
+// Supposons que $products est déjà défini côté JS (par une API par exemple)
+let products = $products || []; // Fallback si undefined
+console.log(products);
+    // document.getElementById('category_id').value = id;
+    // document.getElementById('category_name').value = name;
+    //  form = document.getElementById('category_form');
+    // form.action = `/categories/${Product}`; 
+    
+
+    openCategoryUpdateModal(); 
+}
+ 
 </script>
     </script>
 </body>

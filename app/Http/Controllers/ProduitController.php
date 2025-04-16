@@ -21,7 +21,7 @@ class ProduitController extends Controller
 
         $types= TypeFleur::all();
         $categories=Category::all();
-        $products = Produit::all();
+        $products = Produit::paginate(1);
         
          return view('Product',['products'=>$products,'types'=>$types,'categories'=>$categories]);
     }
@@ -98,11 +98,14 @@ public function store(Request $request)
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Produit $produit)
+    public function edit(Produit $Product)
     {
-        $types=TypeFleur::all();
-      return view ('addProduct',['product'=>$produit,'types'=>$types]);
+        $types = TypeFleur::all();
+        $categories = Category::all();
+        // dd($Product);
+        return view('Update', ['product' => $Product, 'types' => $types, 'categories' => $categories]);
     }
+    
 
     /**
      * Update the specified resource in storage.
@@ -110,45 +113,19 @@ public function store(Request $request)
     public function update(Request $request, Produit $produit)
     {
         
-        $validated=  $request->validate([
-            'product_name' => 'required|string|max:255',
-            'product_description'=>'required|string|max:255',
-            'product_stock'=>'required|integer|min:0',
-            'product_prix'=>'required|numeric|min:0',
-            'product_image'=>'required|image|mimes:png,jpg,jpeg,svg',
-            'type_id'=>'required',
-            
-         
-        ]);
-        dd($request->all());
-       $filename= $request->file('product_image')->store('ProductImge','public');
-
-      
-        $product= Produit::update(['product_name'=>$request->product_name,
-        'product_description'=>$request->product_description,
-        'product_stock'=>$request->product_stock,
-        'product_prix'=>$request ->product_prix,
-        'product_image'=>$filename,
-        'type_id'=>$request->type_id,'occassion'=>$request->occassion
-    ]);
-    if($product){
-        return redirect()->route('index.gestion')->with('success', 'Produit cree avec succès !');
-    }
-    else{
-        return "errors" ;
-    }
+       
    
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy( Produit $produit)
+    public function destroy( Produit $Product)
     {
      
-      if($produit){
-        $produit->delete();
-        return redirect()->route('index.gestion')->with('success', 'Produit supprime avec succès !');
+      if($Product){
+        $Product->delete();
+        return redirect()->route('Product.index')->with('success', 'Produit supprime avec succès !');
   }
   else{
       return " nexiste pas";
