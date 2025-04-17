@@ -73,7 +73,7 @@ public function store(Request $request)
         $product->types()->attach($request->type_ids);
 
         foreach ($request->images as $image) {
-            $fileImage = $image->store('image', 'public');
+            $fileImage = $image->store('images', 'public');
             ImageProduct::create([
                 'product_id' => $product->id,
                 'image' => $fileImage
@@ -112,7 +112,19 @@ public function store(Request $request)
      */
     public function update(Request $request, Produit $produit)
     {
-        
+        $validated = $request->validate([
+            'product_name' => 'required|string|max:255',
+            'product_description' => 'required|string|max:255',
+            'product_stock' => 'required|integer|min:0',
+            'product_prix' => 'required|numeric|min:0',
+            'product_image' => 'required||image|mimes:png,jpg,jpeg,svg',
+            'type_ids' => 'required|array',
+            'type_ids.*' => 'exists:types,id',
+            'images' => 'array',
+            'images.*' => 'image|mimes:png,jpg,jpeg,svg',
+            'category_id' => 'exists:categories,id',
+        ]);
+       
        
    
     }

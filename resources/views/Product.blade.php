@@ -6,6 +6,8 @@
     <title>Fleurissima - Gestion des Produits</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 
     <style>
        /* Reset and Base Styles */
@@ -727,9 +729,11 @@ body {
                                         <th>Image</th>
                                         <th>Nom</th>
                                         <th>Catégorie</th>
+                                        <th>types</th>
                                         <th>Prix</th>
                                         <th>Stock</th>
                                         <th>Statut</th>
+                                        <th>collection</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -739,16 +743,88 @@ body {
                                         <td>#FL001</td>
                                         <td>
                                             <div class="product-img">
-                                                <img src="https://images.unsplash.com/photo-1526047932273-341f2a7631f9?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="Rose bouquet">
+                                                <img src="{{ asset('storage/' . $product->product_image) }}" alt="Rose bouquet">
                                             </div>
                                         </td>
                                         <td>{{$product->product_name}}</td>
-                                        <td>Bouquets</td>
+                                        <td>{{ $product->category?->category_name ?? 'Non définie' }}</td>
+                                        <td>
+    <div id="carouselTypes{{ $product->id }}" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            @foreach($product->types as $key => $type)
+                <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                    <div class="d-flex justify-content-center">
+                        <span class="badge bg-info text-dark p-2">
+                            {{ $type->type_name }}
+                        </span>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+
+        {{-- Optional: navigation arrows --}}
+        @if($product->types->count() > 1)
+            <button class="carousel-control-prev" type="button"style="color:black" data-bs-target="#carouselTypes{{ $product->id }}" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselTypes{{ $product->id }}" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        @endif
+    </div>
+</td>
+
+
                                         <td>€{{$product->product_prix}}</td>
                                         <td>{{$product->product_stock}}</td>
                                         <td><span class="badge badge-success">En stock</span></td>
+                                        <!-- <td>
+                                        @foreach($product->pectures as $image)
+    <img src="{{ asset('storage/' . $image->image) }}" width="50" class="me-1 mb-1 rounded" alt="Image du produit">
+@endforeach
+
+
+
+
+</td> -->
+<td>
+    <div id="carouselImages{{ $product->id }}" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            @foreach($product->pectures as $key => $image)
+                <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                    <img src="{{ asset('storage/' . $image->image) }}"
+                         class="d-block rounded mx-auto"
+                         style="width: 150px; height: 150px; object-fit: cover;"
+                         alt="Image du produit">
+                </div>
+            @endforeach
+        </div>
+
+        @if($product->pectures->count() > 1)
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselImages{{ $product->id }}" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselImages{{ $product->id }}" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        @endif
+    </div>
+</td>
+
+
+
+
+
                                         <td>
-                                        <button class="btn-action btn-delete" onclick='update()'>
+                                        <button class="btn-action btn-delete" id="btnUpdate" onclick='update(this)' data-id="{{$product->id}}"
+                                        data-name="{{$product->product_name}}" 
+                                        data-description="{{$product->product_description}}" 
+                                        data-prix="{{$product->product_prix}}"
+                                        data-stock="{{$product->product_stock}}"
+                                        data-categoryId="{{$product->category->id}}"
+                                        data-image="{{$product->product_image}}"
+                                        data-categoryName="{{$product->category->category_name}}" data-typeids='@json($product->types->pluck("id"))'
+                                        >
                                         <i class="fas fa-edit"></i>
 </button>
                                         <!-- <a href="{{route('Product.edit',['Product'=>$product->id])}}" class="btn-action btn-edit"><i class="fas fa-edit"></i></a> -->
@@ -759,74 +835,7 @@ body {
                                         </td>
                                     </tr>
                                     @endforeach
-                                    <!-- <tr>
-                                        <td>#FL002</td>
-                                        <td>
-                                            <div class="product-img">
-                                                <img src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="Orchid">
-                                            </div>
-                                        </td>
-                                        <td>Orchidée blanche</td>
-                                        <td>Plantes</td>
-                                        <td>€32.50</td>
-                                        <td>8</td>
-                                        <td><span class="badge badge-success">En stock</span></td>
-                                        <td>
-                                            <button class="btn-action btn-edit"><i class="fas fa-edit"></i></button>
-                                            <button class="btn-action btn-delete"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>#FL003</td>
-                                        <td>
-                                            <div class="product-img">
-                                                <img src="https://images.unsplash.com/photo-1563170351-be82bc888aa4?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="Tulips">
-                                            </div>
-                                        </td>
-                                        <td>Tulipes multicolores</td>
-                                        <td>Fleurs coupées</td>
-                                        <td>€28.00</td>
-                                        <td>0</td>
-                                        <td><span class="badge badge-danger">Rupture</span></td>
-                                        <td>
-                                            <button class="btn-action btn-edit"><i class="fas fa-edit"></i></button>
-                                            <button class="btn-action btn-delete"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>#FL004</td>
-                                        <td>
-                                            <div class="product-img">
-                                                <img src="https://images.unsplash.com/photo-1459156212016-c812468e2115?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="Flower arrangement">
-                                            </div>
-                                        </td>
-                                        <td>Composition printanière</td>
-                                        <td>Compositions</td>
-                                        <td>€65.00</td>
-                                        <td>5</td>
-                                        <td><span class="badge badge-warning">Stock limité</span></td>
-                                        <td>
-                                            <button class="btn-action btn-edit"><i class="fas fa-edit"></i></button>
-                                            <button class="btn-action btn-delete"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>#FL005</td>
-                                        <td>
-                                            <div class="product-img">
-                                                <img src="https://images.unsplash.com/photo-1526397751294-331021109fbd?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="Succulent">
-                                            </div>
-                                        </td>
-                                        <td>Succulente en pot</td>
-                                        <td>Plantes</td>
-                                        <td>€18.00</td>
-                                        <td>15</td>
-                                        <td><span class="badge badge-success">En stock</span></td>
-                                        <td>
-                                            <button class="btn-action btn-edit"><i class="fas fa-edit"></i></button>
-                                            <button class="btn-action btn-delete"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr> -->
+                                   
                                 </tbody>
                             </table>
                             {{$products->links()}}
@@ -1024,14 +1033,14 @@ body {
 
         const updateProductModal = document.getElementById('updateProductModal');
         const updateProductForm = document.getElementById('updateProductForm');
-        const select = document.getElementById("Category");
+        const categoryslect = document.getElementById("Category");
         const typeSelect = document.getElementById("Types");
-
+const selected=document.getElementById("Category");
 categories.forEach(category => {
     const option = document.createElement("option");
     option.value = category.id;
     option.textContent = category.category_name;
-    select.appendChild(option);
+    categoryslect.appendChild(option);
 });
 types.forEach(type => {
         const option = document.createElement("option");
@@ -1040,12 +1049,40 @@ types.forEach(type => {
         typeSelect.appendChild(option);
     });
 
-function update(){
-    const updateProductForm = document.getElementById('updateProductForm');
-    updateProductModal.style.display="flex";
-   
-    console.log(updateProductForm);
- }
+    function update(button) {
+    updateProductModal.style.display = "flex";
+
+    const productId = button.getAttribute('data-id');  
+    const productName = button.getAttribute('data-name');
+    const productDescription = button.getAttribute('data-description');
+    const productPrix = button.getAttribute('data-prix');
+    const productStock = button.getAttribute('data-stock');
+    const productCategoryId = button.getAttribute('data-categoryid');
+
+    updateProductForm['product_name'].value = productName;
+    updateProductForm['product_description'].value = productDescription;
+    updateProductForm['product_prix'].value = productPrix;
+    updateProductForm['product_stock'].value = productStock;
+    
+    categoryslect.value = productCategoryId; 
+    const productTypeIds = JSON.parse(button.getAttribute('data-typeids') || "[]");
+   console.log(typeof(productTypeIds));
+
+   types.forEach(type => {
+    const option = document.createElement("option");
+    option.value = type.id;
+    option.textContent = type.type_name;
+
+
+    if (productTypeIds.includes(type.id)) {
+        option.selected = true;
+    }
+
+    typeSelect.appendChild(option);
+});
+
+}
+
 
 
 
@@ -1113,19 +1150,7 @@ function update(){
     //     // Fermer le modal
     //     closeModal();
     // });
-    function editProduct(Product) {
-
-// Supposons que $products est déjà défini côté JS (par une API par exemple)
-let products = $products || []; // Fallback si undefined
-console.log(products);
-    // document.getElementById('category_id').value = id;
-    // document.getElementById('category_name').value = name;
-    //  form = document.getElementById('category_form');
-    // form.action = `/categories/${Product}`; 
-    
-
-    openCategoryUpdateModal(); 
-}
+  
  
 </script>
     </script>

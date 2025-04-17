@@ -8,8 +8,8 @@ class ImageProduct extends Model
 {
     protected $table='image_products';
     protected $fillable=['product_id','image'];
-    public function produitg (){
-        return $this->belongsTo(Produit::class);
+    public function produit (){
+        return $this->belongsTo(Produit::class,'product_id');
     }
     
 }
