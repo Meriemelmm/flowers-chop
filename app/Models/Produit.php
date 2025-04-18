@@ -29,6 +29,6 @@ class Produit extends Model
 
     public function pectures() // ou images(), selon ta logique
     {
-        return $this->hasMany(ImageProduct::class, 'product_id');
+        return $this->hasMany(ImageProduct::class,'product_id');
     }
 }

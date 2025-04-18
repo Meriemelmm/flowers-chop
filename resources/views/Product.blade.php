@@ -732,7 +732,7 @@ body {
                                         <th>types</th>
                                         <th>Prix</th>
                                         <th>Stock</th>
-                                        <th>Statut</th>
+                                       
                                         <th>collection</th>
                                         <th>Actions</th>
                                     </tr>
@@ -777,16 +777,8 @@ body {
 
                                         <td>€{{$product->product_prix}}</td>
                                         <td>{{$product->product_stock}}</td>
-                                        <td><span class="badge badge-success">En stock</span></td>
-                                        <!-- <td>
-                                        @foreach($product->pectures as $image)
-    <img src="{{ asset('storage/' . $image->image) }}" width="50" class="me-1 mb-1 rounded" alt="Image du produit">
-@endforeach
-
-
-
-
-</td> -->
+                                        <!-- <td><span class="badge badge-success">En stock</span></td> -->
+                                       
 <td>
     <div id="carouselImages{{ $product->id }}" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
@@ -859,7 +851,7 @@ body {
                     </div>
                 </div>
 
-                <!-- Add Product Modal (hidden by default) -->
+                
                 <div class="modal" id="addProductModal">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -946,8 +938,18 @@ body {
 
 
                 <div class="modal" id="updateProductModal">
+             
                     <div class="modal-content">
                         <div class="modal-header">
+                        @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
                             <h3>modifier  produit</h3>
                             <button class="close-modal"onClick=" closeModal() ">&times;</button>
                         </div>
@@ -956,10 +958,12 @@ body {
                                 @csrf
                                 @method('PATCH')
                                 <div class="form-row">
+                                <input type="hidden" name="product_id">
                                     <div class="form-group">
                                         <label for="productName">Nom du produit</label>
                                         <input type="text" id="product_name"name="product_name" placeholder="entrer le nom de produit " required>
                                     </div>
+
                                     <div class="form-group">
                                         <label for="productCategory">Catégorie</label>
                                         <select id="Category" name="category_id" required>
@@ -980,7 +984,7 @@ body {
                                 </div>
                                 <div class="form-group">
                                 <label for="productCategory">type des fleurs </label>
-                                        <select name="type_ids[]"id="Types"  multiple required>
+                                        <select name="types[]"id="Types"  multiple required>
                                             <option value="">Sélectionner une type</option>
                                             
                                           
@@ -1052,7 +1056,7 @@ types.forEach(type => {
     function update(button) {
     updateProductModal.style.display = "flex";
 
-    const productId = button.getAttribute('data-id');  
+    const Produit = button.getAttribute('data-id');  
     const productName = button.getAttribute('data-name');
     const productDescription = button.getAttribute('data-description');
     const productPrix = button.getAttribute('data-prix');
@@ -1063,6 +1067,9 @@ types.forEach(type => {
     updateProductForm['product_description'].value = productDescription;
     updateProductForm['product_prix'].value = productPrix;
     updateProductForm['product_stock'].value = productStock;
+    updateProductForm['product_id'].value=Produit;
+    updateProductForm.action= `/Product/${Produit}`; 
+    
     
     categoryslect.value = productCategoryId; 
     const productTypeIds = JSON.parse(button.getAttribute('data-typeids') || "[]");
@@ -1105,52 +1112,35 @@ types.forEach(type => {
     const addProductModal = document.getElementById('addProductModal');
     const closeModalBtns = document.querySelectorAll('.close-modal');
     
-    // Fonction pour ouvrir le modal
+   
     function openModal() {
         addProductModal.style.display = 'flex';
-        document.body.style.overflow = 'hidden'; // Empêche le défilement de la page
+        document.body.style.overflow = 'hidden'; 
     }
     
-    // Fonction pour fermer le modal
+    
     function closeModal() {
         addProductModal.style.display = 'none';
          updateProductModal.style.display = 'none';
-        document.body.style.overflow = 'auto'; // Rétablit le défilement
+        document.body.style.overflow = 'auto'; 
     }
     
-    // Événement click sur le bouton "Ajouter un produit"
+   
     addProductBtn.addEventListener('click', openModal);
     
-    // Événements click sur les boutons de fermeture
+   
     closeModalBtns.forEach(btn => {
         btn.addEventListener('click', closeModal);
     });
     
-    // Fermer le modal en cliquant à l'extérieur
+   
     addProductModal.addEventListener('click', (e) => {
         if (e.target === addProductModal) {
             closeModal();
         }
     });
     
-    // Gestion de la soumission du formulaire
-    // const addProductForm = document.getElementById('addProductForm');
-    // addProductForm.addEventListener('submit', (e) => {
-    //     e.preventDefault();
-        
-    //     // Ici vous pouvez ajouter le code pour traiter les données du formulaire
-    //     // Par exemple, envoyer les données à un serveur ou ajouter le produit à la liste
-        
-    //     // Afficher un message de confirmation
-    //     // alert('Produit ajouté avec succès!');
-        
-    //     // // Réinitialiser le formulaire
-    //     // addProductForm.reset();
-        
-    //     // Fermer le modal
-    //     closeModal();
-    // });
-  
+   
  
 </script>
     </script>
