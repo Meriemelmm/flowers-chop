@@ -22,6 +22,9 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+    public function panier(){
+        return $this->hasOne(Panier::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.

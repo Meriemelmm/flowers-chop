@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TypeFleurController;
+use App\Http\Controllers\PanierController;
 
 Route::get('register',[UserController::class,'showRegister'])->name('register');
 Route::post('register',[UserController::class,'register'])->name('register.store');
@@ -31,6 +32,9 @@ Route::resource('TypeFleur', TypeFleurController::class);
 // flowers products:
 Route::resource('Product',ProduitController::class);
 
+
+ Route::get('Shop',[ProduitController::class,'shop'])->name('shop.index');
+ Route::resource('Panier',PanierController::class);
 
 
 ?>

@@ -7,7 +7,7 @@ use App\Models\TypeFleur;
 use App\Models\Category;
 use App\Models\ImageProduct;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validate;
+
  use Illuminate\Database\Eloquent\Relations\BelongsTo;
  use Illuminate\Support\Facades\Storage;
 
@@ -22,9 +22,18 @@ class ProduitController extends Controller
 
         $types= TypeFleur::all();
         $categories=Category::all();
-        $products = Produit::paginate(1);
+        $products = Produit::paginate(20);
         
          return view('Product',['products'=>$products,'types'=>$types,'categories'=>$categories]);
+    }
+    // COTE CLIENT :
+    public function shop()
+    {
+
+        $products = Produit::paginate(20);
+        
+        return view('Shop',['products'=>$products]);
+       
     }
 
     /**
@@ -72,6 +81,7 @@ public function store(Request $request)
 
     if ($product) {
         $product->types()->attach($request->type_ids);
+     
 
         foreach ($request->images as $image) {
             $fileImage = $image->store('images', 'public');
@@ -113,7 +123,7 @@ public function store(Request $request)
      */
     public function update(Request $request, $Produit)
 {
-    $product = Produit::find($Produit);
+    $product = Produit::findOrFail($id);
 
     if ($product) {
       
@@ -200,7 +210,16 @@ public function store(Request $request)
     {
      
       if($Product){
+        
+  foreach ($Product->images as $image) {
+            Storage::disk('public')->delete($image->image);
+            $image->delete();
+        }
+        
+        Storage::disk('public')->delete($Product->product_image);
         $Product->delete();
+       
+       
         return redirect()->route('Product.index')->with('success', 'Produit supprime avec succès !');
   }
   else{

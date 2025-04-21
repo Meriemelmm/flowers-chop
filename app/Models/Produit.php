@@ -27,8 +27,11 @@ class Produit extends Model
         return $this->belongsTo(Category::class,'category_id'); 
     }
 
-    public function pectures() // ou images(), selon ta logique
+    public function pectures()
     {
         return $this->hasMany(ImageProduct::class,'product_id');
+    }
+    public function Panier(){
+        return $this->belongsToMany(Panier::class,'produit_panier','produit_id','panier_id');
     }
 }

@@ -1,152 +1,117 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscription - Flower Chop</title>
-    <link rel="stylesheet" href="styles.css">
-    <!-- Lien vers une bibliothèque d'icônes (ex: FontAwesome) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>/* Style de base */
-body {
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #f9f9f9, #e6f4e6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-}
-
-.flower-background {
-    background-image: url('flower-background.jpg'); /* Ajoutez une image de fond florale */
-    background-size: cover;
-    background-position: center;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.register-container {
-    background: rgba(255, 255, 255, 0.9);
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 350px;
-    text-align: center;
-    position: relative;
-}
-
-h2 {
-    color: #4CAF50;
-    font-size: 24px;
-    margin-bottom: 20px;
-}
-
-h2 i {
-    margin-right: 10px;
-    color: #4CAF50;
-}
-
-.input-group {
-    margin-bottom: 20px;
-    text-align: left;
-}
-
-.input-group label {
-    display: block;
-    margin-bottom: 5px;
-    color: #333;
-    font-weight: bold;
-}
-
-.input-group input {
-    width: 100%;
-    padding: 10px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    box-sizing: border-box;
-    font-size: 16px;
-    transition: border-color 0.3s ease;
-}
-
-.input-group input:focus {
-    border-color: #4CAF50;
-    outline: none;
-}
-
-.register-btn {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-}
-
-.register-btn:hover {
-    background-color: #45a049;
-}
-
-.register-btn i {
-    margin-left: 10px;
-}
-
-.flower-decoration {
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-around;
-    color: #4CAF50;
-    font-size: 24px;
-    animation: float 3s ease-in-out infinite;
-}
-
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inscription - Merylowers</title>
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#e84c93',
+            secondary: '#4a8b3b',
+          },
+          borderRadius: {
+            button: '8px',
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
 </head>
-<body>
-    <div class="flower-background">
-        <div class="register-container">
-            <h2><i class="fas fa-seedling"></i> Inscription à Flower Chop</h2>
-            <form action="{{route('register.store')}}" method="post">
-            @csrf 
-                <div class="input-group">
-                    <label for="name"><i class="fas fa-user"></i> Nom d'utilisateur</label>
-                    <input type="text" id="name" name="name" value="{{old('name')}}" class="@error('name') is-invalid @enderror" required>
+<body class="bg-gray-50 text-gray-800">
 
-                </div>
-                @error('name')
-    <div class="alert alert-danger">{{ $message }}</div>
-@enderror
-                <div class="input-group">
-                    <label for="email"><i class="fas fa-envelope"></i> Email</label>
-                    <input type="email" id="email" name="email"value="{{old('email')}}" class="@error('email') is-invalid @enderror"required>
-                </div>
-                @error('email')
-    <div class="alert alert-danger">{{ $message }}</div>
-@enderror
-                <div class="input-group">
-                    <label for="password"><i class="fas fa-lock"></i> Mot de passe</label>
-                    <input type="password" id="password" name="password" class="@error('password') is-invalid @enderror"required >
-                </div>
-                @error('password')
-    <div class="alert alert-danger">{{ $message }}</div>
-@enderror
-                <div class="input-group">
-                    <label for="password_confirmation"><i class="fas fa-lock"></i> Confirmez le mot de passe</label>
-                    <input type="password" id="confirm-password" name="password_confirmation" required>
-                </div>
-                <button type="submit" class="register-btn">S'inscrire <i class="fas fa-arrow-right"></i></button>
-            </form>
-            <div class="flower-decoration">
-                <i class="fas fa-spa"></i>
-                <i class="fas fa-leaf"></i>
-                <i class="fas fa-spa"></i>
-            </div>
-        </div>
+  <header class="bg-white shadow-sm">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="#" class="text-3xl font-['Pacifico'] text-primary">Merylowers</a>
+      <nav class="hidden md:flex space-x-6">
+        <a href="#" class="hover:text-primary transition-colors">Accueil</a>
+        <a href="#" class="hover:text-primary transition-colors">Boutique</a>
+        <a href="#" class="hover:text-primary transition-colors">À propos</a>
+        <a href="#" class="hover:text-primary transition-colors">Contact</a>
+      </nav>
     </div>
+  </header>
+
+  <main class="min-h-screen flex items-center justify-center px-4 py-12">
+    <div class="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
+        <h2 class="text-2xl font-semibold text-center text-primary mb-6">Créer un compte</h2>
+      
+        <form action="{{route('register.store')}}" method="POST" class="space-y-4">
+  @csrf
+
+  <div>
+    <label for="name" class="block text-sm font-medium mb-1">Nom complet</label>
+    <input type="text" id="name" name="name" value="{{ old('name') }}" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary outline-none @error('name') border-red-500 @enderror" required>
+    @error('name')
+      <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+    @enderror
+  </div>
+
+  <div>
+    <label for="email" class="block text-sm font-medium mb-1">Adresse email</label>
+    <input type="email" id="email" name="email" value="{{ old('email') }}" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary outline-none @error('email') border-red-500 @enderror" required>
+    @error('email')
+      <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+    @enderror
+  </div>
+
+  <div>
+    <label for="password" class="block text-sm font-medium mb-1">Mot de passe</label>
+    <input type="password" id="password" name="password" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary outline-none @error('password') border-red-500 @enderror" required>
+    @error('password')
+      <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+    @enderror
+  </div>
+
+  <div>
+    <label for="country" class="block text-sm font-medium mb-1">Pays</label>
+    <input type="text" id="country" name="country" value="{{ old('country') }}" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary outline-none @error('country') border-red-500 @enderror" required>
+    @error('country')
+      <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+    @enderror
+  </div>
+
+  <div>
+    <label for="city" class="block text-sm font-medium mb-1">Ville</label>
+    <input type="text" id="city" name="city" value="{{ old('city') }}" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary outline-none @error('city') border-red-500 @enderror" required>
+    @error('city')
+      <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+    @enderror
+  </div>
+
+  <div>
+    <label for="postal_code" class="block text-sm font-medium mb-1">Code postal</label>
+    <input type="text" id="postal_code" name="postal_code" value="{{ old('postal_code') }}" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary outline-none @error('postal_code') border-red-500 @enderror" required>
+    @error('postal_code')
+      <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+    @enderror
+  </div>
+
+  <div>
+    <label for="phone" class="block text-sm font-medium mb-1">Téléphone</label>
+    <input type="tel" id="phone" name="phone" value="{{ old('phone') }}" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary outline-none @error('phone') border-red-500 @enderror" required>
+    @error('phone')
+      <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+    @enderror
+  </div>
+
+  <button type="submit" class="w-full bg-primary text-white py-2 rounded-button hover:bg-opacity-90 transition-colors">
+    S'inscrire
+  </button>
+</form>
+
+      
+        <p class="text-sm text-center mt-4">Vous avez déjà un compte ? <a href="#" class="text-primary hover:underline">Se connecter</a></p>
+      </div>
+      
+  </main>
+
 </body>
 </html>

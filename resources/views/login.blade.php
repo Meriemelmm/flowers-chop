@@ -1,132 +1,72 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion - Flowers Shop</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>/* Style général */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-}
-
-/* Conteneur du formulaire */
-.login-container {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    width: 320px;
-    text-align: center;
-}
-
-/* Titre */
-.login-container h2 {
-    margin-bottom: 20px;
-    color: #333;
-}
-
-/* Champs du formulaire */
-.input-group {
-    text-align: left;
-    margin-bottom: 15px;
-}
-
-.input-group label {
-    display: block;
-    font-size: 14px;
-    margin-bottom: 5px;
-}
-
-.input-group input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-/* Se souvenir de moi */
-.remember-me {
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    margin-bottom: 15px;
-}
-
-.remember-me input {
-    margin-right: 5px;
-}
-
-/* Bouton de connexion */
-button {
-    width: 100%;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-button:hover {
-    background-color: #218838;
-}
-
-/* Lien mot de passe oublié */
-.forgot-password {
-    margin-top: 10px;
-}
-
-.forgot-password a {
-    color: #007bff;
-    text-decoration: none;
-}
-
-.forgot-password a:hover {
-    text-decoration: underline;
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Connexion - Merylowers</title>
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#e84c93',
+            secondary: '#4a8b3b',
+          },
+          borderRadius: {
+            button: '8px',
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
 </head>
-<body>
-    <div class="login-container">
-        <h2>Connexion à Flowers Shop</h2>
+<body class="bg-gray-50 text-gray-800">
 
-        <form action="{{route('login')}}" method="POST">
-            <!-- Email -->
-            @csrf
-            <div class="input-group">
-                <label for="email">Adresse Email</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-
-            <!-- Mot de passe -->
-            <div class="input-group">
-                <label for="password">Mot de Passe</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-
-            <!-- Se souvenir de moi -->
-            <div class="remember-me">
-                <input type="checkbox" id="remember" name="remember">
-                <label for="remember">Se souvenir de moi</label>
-            </div>
-
-            <!-- Bouton de connexion -->
-            <button type="submit">Se connecter</button>
-
-            <!-- Lien mot de passe oublié -->
-            <div class="forgot-password">
-                <a href="#">Mot de passe oublié ?</a>
-            </div>
-        </form>
+  <header class="bg-white shadow-sm">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="#" class="text-3xl font-['Pacifico'] text-primary">Merylowers</a>
+      <nav class="hidden md:flex space-x-6">
+        <a href="#" class="hover:text-primary transition-colors">Accueil</a>
+        <a href="#" class="hover:text-primary transition-colors">Boutique</a>
+        <a href="#" class="hover:text-primary transition-colors">À propos</a>
+        <a href="#" class="hover:text-primary transition-colors">Contact</a>
+      </nav>
     </div>
+  </header>
+
+  <main class="min-h-screen flex items-center justify-center px-4 py-12">
+    <div class="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
+      <h2 class="text-2xl font-semibold text-center text-primary mb-6">Connexion</h2>
+
+      <form action="{{route('login')}}" method="POST" class="space-y-4">
+        <div>
+          <label for="email" class="block text-sm font-medium mb-1">Adresse email</label>
+          <input type="email" id="email" name="email" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary outline-none" required>
+        </div>
+        <div>
+          <label for="password" class="block text-sm font-medium mb-1">Mot de passe</label>
+          <input type="password" id="password" name="password" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary outline-none" required>
+        </div>
+        <div class="flex items-center justify-between text-sm">
+          <label class="flex items-center gap-2">
+            <input type="checkbox" class="rounded text-primary focus:ring-primary">
+            Se souvenir de moi
+          </label>
+          <a href="#" class="text-primary hover:underline">Mot de passe oublié ?</a>
+        </div>
+        <button type="submit" class="w-full bg-primary text-white py-2 rounded-button hover:bg-opacity-90 transition-colors">
+          Se connecter
+        </button>
+      </form>
+
+      <p class="text-sm text-center mt-4">Pas encore inscrit ? <a href="#" class="text-primary hover:underline">Créer un compte</a></p>
+    </div>
+  </main>
+
 </body>
 </html>

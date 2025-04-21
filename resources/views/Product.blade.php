@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fleurissima - Gestion des Produits</title>
+    <title>Merylowers- Gestion des Produits</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -257,8 +257,8 @@ body {
 }
 
 .product-img {
-    width: 50px;
-    height: 50px;
+    width: 80px;
+    height: 80px;
     border-radius: 4px;
     overflow: hidden;
 }
@@ -631,7 +631,7 @@ body {
         <aside class="sidebar">
             <div class="logo">
                 <i class="fas fa-spa"></i>
-                <span>Fleurissima</span>
+                <span>Merylowers</span>
             </div>
             <nav class="sidebar-nav">
                 <ul>
@@ -1076,13 +1076,11 @@ types.forEach(type => {
    console.log(typeof(productTypeIds));
 
    types.forEach(type => {
-    const option = document.createElement("option");
-    option.value = type.id;
-    option.textContent = type.type_name;
+   
 
 
     if (productTypeIds.includes(type.id)) {
-        option.selected = true;
+        typeSelect.value=type.id;
     }
 
     typeSelect.appendChild(option);
