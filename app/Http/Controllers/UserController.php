@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\User;
+use App\Models\Panier;
  
 use Illuminate\Validation\Rules\Password;
 
@@ -45,20 +46,40 @@ class UserController  extends Controller
         $validated=  $request->validate([
             'name' => 'required|string|max:255',
             'email'=>'required|unique:users|email|lowercase',
-            'password'=>'required|string|min:8|confirmed
-            '
+            'password'=>'required|string|min:8|confirmed',
+            'phone' => 'required|string|max:20',
+            'country' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
+            'postal_code' => 'required|string|max:10', 
+      
         ]);
     
        $user= User::create(['name'=>$validated['name'],
        'email'=>$validated['email'],
-       'password'=>$validated['password']]); 
-       if($user){
-        return " correct";
+       'password'=>$validated['password'], 
+       'phone' => $validated['phone'],
+       'country' => $validated['country'],
+       'address' => $validated['address'],
+       'city' => $validated['city'], 'role' => 'client',
 
+
+       'postal_code' => $validated['postal_code'],]); 
+       if ($user ) { 
+        Auth::login($user);
+      
+        if($user->role==="client"){
+           
+             $panier=Panier::create(['user_id'=>$user->id]); 
+             return redirect('/Shop');
+        }
+      
+       return "good job ";
+    } else {
+        return "not job ";
     }
-    else{
-        return "incorrct";
-    }
+       
+    
     }
 
 

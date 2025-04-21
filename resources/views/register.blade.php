@@ -69,6 +69,13 @@
       <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
     @enderror
   </div>
+  <div>
+    <label for="password_confirmation" class="block text-sm font-medium mb-1">Confirmation de password </label>
+    <input type="password" id="password" name="password_confirmation" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary outline-none @error('password') border-red-500 @enderror" required>
+    @error('password')
+      <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+    @enderror
+  </div>
 
   <div>
     <label for="country" class="block text-sm font-medium mb-1">Pays</label>
@@ -82,6 +89,13 @@
     <label for="city" class="block text-sm font-medium mb-1">Ville</label>
     <input type="text" id="city" name="city" value="{{ old('city') }}" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary outline-none @error('city') border-red-500 @enderror" required>
     @error('city')
+      <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+    @enderror
+  </div>
+  <div>
+    <label for="address" class="block text-sm font-medium mb-1">address</label>
+    <input type="text" id="address" name="address" value="{{ old('country') }}" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary outline-none @error('country') border-red-500 @enderror" required>
+    @error('address')
       <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
     @enderror
   </div>

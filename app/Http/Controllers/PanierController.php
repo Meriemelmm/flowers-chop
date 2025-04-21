@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Panier;
+use Illuminate\Support\Facades\Auth;
 
 class PanierController extends Controller
 {
@@ -29,6 +30,22 @@ class PanierController extends Controller
      */
     public function store(Request $request)
     {
+         if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'Veuillez vous connecter pour ajouter au panier.');
+        }
+        $user= Auth::user();
+        $panier=Panier::create(['user_id'=>$user->id]);
+        
+        dd($user->id);
+       
+        $request->validate([
+            'product_id' => 'required|exists:produits,id',
+        ]);
+        $panierid=$user->panier->id;
+        dd( $panierid);
+        
+    
+ 
         
     }
 

@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Panier extends Model
 {
+    protected $table = 'paniers';
+
+    protected $fillable = [
+        'user_id',
+      
+    ];
     public function User(){
         return $this->belongsTo(User::class);
     }

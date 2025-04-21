@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone','country',
+        'city','address','postal_code','role'
     ];
     public function panier(){
         return $this->hasOne(Panier::class);

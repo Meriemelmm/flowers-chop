@@ -322,8 +322,9 @@
                                     <i class="ri-star-half-fill text-yellow-400"></i>
                                 </div>
                             </div>
-                            <form action="{{route('Panier.store')}}">
-                            <input type="hidden" value="{{ $product->id }}">
+                            <form action="{{route('Panier.store')}}"method="POST">
+                            @csrf
+                            <input type="hidden" value="{{$product->id}}">
 
                             <button class="w-full py-2 bg-primary text-white font-medium rounded-button hover:bg-opacity-90 transition-colors flex items-center justify-center gap-2 whitespace-nowrap">
                                 <i class="ri-shopping-cart-2-line"></i>
