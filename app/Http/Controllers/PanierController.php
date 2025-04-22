@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Panier;
+use App\Models\Produit;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PanierController extends Controller
 {
@@ -30,25 +32,33 @@ class PanierController extends Controller
      */
     public function store(Request $request)
     {
-         if (!Auth::check()) {
+        if (!Auth::check()) {
             return redirect()->route('login')->with('error', 'Veuillez vous connecter pour ajouter au panier.');
         }
-        $user= Auth::user();
-        $panier=Panier::create(['user_id'=>$user->id]);
+    
+        $user = Auth::user();
         
-        dd($user->id);
-       
+  
+        $panier = $user->panier ?? Panier::create(['user_id' => $user->id]);
+    
         $request->validate([
             'product_id' => 'required|exists:produits,id',
         ]);
-        $panierid=$user->panier->id;
-        dd( $panierid);
-        
-    
- 
-        
-    }
 
+        try {
+          
+            $create=$panier->produits()->attach($request->product_id);
+            if($create){
+              
+             return back()->with('success', 'Produit ajouté au panier');
+            }
+           
+            
+           
+        } catch (\Exception $e) {
+            return back()->with('error', 'Erreur technique: '.$e->getMessage());
+        }
+    }
     /**
      * Display the specified resource.
      */

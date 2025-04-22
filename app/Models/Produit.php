@@ -32,6 +32,6 @@ class Produit extends Model
         return $this->hasMany(ImageProduct::class,'product_id');
     }
     public function Panier(){
-        return $this->belongsToMany(Panier::class,'produit_panier','produit_id','panier_id');
+        return $this->belongsToMany(Panier::class,'produit_panier','product_id','panier_id');
     }
 }

@@ -155,11 +155,13 @@
                 <a href="#" class="text-primary font-medium">Boutique</a>
                 <a href="#" class="hover:text-primary transition-colors">À propos</a>
                 <a href="#" class="hover:text-primary transition-colors">Contact</a>
+
             </nav>
             <div class="flex items-center space-x-4">
                 <div class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 cursor-pointer transition-colors">
                     <i class="ri-search-line text-lg"></i>
                 </div>
+                
                 <div class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 cursor-pointer transition-colors relative">
                     <i class="ri-shopping-cart-2-line text-lg"></i>
                     <span class="absolute -top-1 -right-1 bg-primary text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">3</span>
@@ -167,6 +169,7 @@
                 <div class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 cursor-pointer transition-colors md:hidden">
                     <i class="ri-menu-line text-lg"></i>
                 </div>
+                
             </div>
         </div>
     </header>
@@ -324,7 +327,7 @@
                             </div>
                             <form action="{{route('Panier.store')}}"method="POST">
                             @csrf
-                            <input type="hidden" value="{{$product->id}}">
+                            <input type="hidden" value="{{$product->id}}" name="product_id">
 
                             <button class="w-full py-2 bg-primary text-white font-medium rounded-button hover:bg-opacity-90 transition-colors flex items-center justify-center gap-2 whitespace-nowrap">
                                 <i class="ri-shopping-cart-2-line"></i>
