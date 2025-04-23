@@ -108,6 +108,7 @@
         </div>
         
         <div class="flex flex-col lg:flex-row gap-8">
+            
             <!-- Liste des articles -->
             <div class="lg:w-2/3">
                 <div class="bg-white rounded-lg shadow-sm p-6">
