@@ -31,34 +31,104 @@ class PanierController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        if (!Auth::check()) {
-            return redirect()->route('login')->with('error', 'Veuillez vous connecter pour ajouter au panier.');
-        }
+{
+    if (!Auth::check()) {
+        return redirect()->route('login')->with('error', 'Veuillez vous connecter pour ajouter au panier.');
+    }
+
+    $user = Auth::user();
     
-        $user = Auth::user();
+    $panier = $user->panier ?? Panier::create(['user_id' => $user->id]);
+
+    $request->validate([
+        'product_id' => 'required|exists:produits,id',
+    ]);
+
+    try {
+        
+        $existingProduct = $panier->produits()->where('product_id', $request->product_id)->first();
+
+        if ($existingProduct) {
+           
+            $updated = $panier->produits()->updateExistingPivot($existingProduct->pivot->product_id, [
+                'quantity' => $existingProduct->pivot->quantity + 1
+            ]);
+
+          
+            if ($updated) {
+               
+                return redirect()->route('Shop')->with('success', 'Produit ajouté au panier');
+            } else {
+                return back()->with('error', 'Échec de la mise à jour de la quantité.');
+            }
+        } else {
+          
+            $create = $panier->produits()->attach($request->product_id, ['quantity' => 1]);
+
+          
+            if ($create) {
+                return redirect()->route('Shop')->with('success', 'Produit ajouté au panier');
+            } else {
+                return back()->with('error', 'Échec de l\'ajout du produit au panier.');
+            }
+        }
+    } catch (\Exception $e) {
+        return back()->with('error', 'Erreur technique: ' . $e->getMessage());
+    }
+}
+
+    // public function store(Request $request)
+    // {
+    //     if (!Auth::check()) {
+    //         return redirect()->route('login')->with('error', 'Veuillez vous connecter pour ajouter au panier.');
+    //     }
+    
+    //     $user = Auth::user();
         
   
-        $panier = $user->panier ?? Panier::create(['user_id' => $user->id]);
+    //     $panier = $user->panier ?? Panier::create(['user_id' => $user->id]);
     
-        $request->validate([
-            'product_id' => 'required|exists:produits,id',
-        ]);
+    //     $request->validate([
+    //         'product_id' => 'required|exists:produits,id',
+    //     ]);
 
-        try {
+       
+    //     try {
+        
+    //        $existingProduct = $panier->produits()->where('product_id', $request->product_id)->first();
+           
           
-            $create=$panier->produits()->attach($request->product_id);
-            if($create){
+    //         if($existingProduct){
+
+    //        $updated=$panier->produits()->updateExistingPivot($existingProduct->pivot->product_id, ['quantity' => $existingProduct->pivot->quantity + 1]);
+           
+         
+    //         if($updated){
+           
+
               
-             return back()->with('success', 'Produit ajouté au panier');
-            }
+              
+    //            return redirect()->route('Shop')->with('success', 'Produit ajouté au panier');
+    //         }
+           
+    //         }
+
+    //         else{
+    //             $create=$panier->produits()->attach($request->product_id);
+              
+    //             if($create){
+                  
+    //                 return redirect()->route('Shop')->with('success', 'Produit ajouté au panier');
+    //             }
+               
+    //         }
            
             
            
-        } catch (\Exception $e) {
-            return back()->with('error', 'Erreur technique: '.$e->getMessage());
-        }
-    }
+    //     } catch (\Exception $e) {
+    //         return back()->with('error', 'Erreur technique: '.$e->getMessage());
+    //     }
+    // }
     /**
      * Display the specified resource.
      */
