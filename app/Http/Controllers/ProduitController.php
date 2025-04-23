@@ -211,7 +211,7 @@ public function store(Request $request)
      
       if($Product){
         
-  foreach ($Product->images as $image) {
+  foreach ($Product->pectures as $image) {
             Storage::disk('public')->delete($image->image);
             $image->delete();
         }

@@ -15,7 +15,16 @@ class PanierController extends Controller
      */
     public function index()
     {
-       return view('Shop');
+$panier= Auth::user()->panier;
+
+$products=$panier->produits()->where('panier_id',$panier->id)->get();
+
+  if($products){
+   
+      return view('Panier',['products'=>$products]);
+  }
+   
+
         
     }
 
@@ -77,58 +86,6 @@ class PanierController extends Controller
     }
 }
 
-    // public function store(Request $request)
-    // {
-    //     if (!Auth::check()) {
-    //         return redirect()->route('login')->with('error', 'Veuillez vous connecter pour ajouter au panier.');
-    //     }
-    
-    //     $user = Auth::user();
-        
-  
-    //     $panier = $user->panier ?? Panier::create(['user_id' => $user->id]);
-    
-    //     $request->validate([
-    //         'product_id' => 'required|exists:produits,id',
-    //     ]);
-
-       
-    //     try {
-        
-    //        $existingProduct = $panier->produits()->where('product_id', $request->product_id)->first();
-           
-          
-    //         if($existingProduct){
-
-    //        $updated=$panier->produits()->updateExistingPivot($existingProduct->pivot->product_id, ['quantity' => $existingProduct->pivot->quantity + 1]);
-           
-         
-    //         if($updated){
-           
-
-              
-              
-    //            return redirect()->route('Shop')->with('success', 'Produit ajouté au panier');
-    //         }
-           
-    //         }
-
-    //         else{
-    //             $create=$panier->produits()->attach($request->product_id);
-              
-    //             if($create){
-                  
-    //                 return redirect()->route('Shop')->with('success', 'Produit ajouté au panier');
-    //             }
-               
-    //         }
-           
-            
-           
-    //     } catch (\Exception $e) {
-    //         return back()->with('error', 'Erreur technique: '.$e->getMessage());
-    //     }
-    // }
     /**
      * Display the specified resource.
      */
@@ -156,8 +113,16 @@ class PanierController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request,$Panier)
     {
-        //
+        $panier= Auth::user()->panier;
+       
+
+       $product=$panier->produits()->where('product_id',$Panier)->first();
+       if($product){
+        $panier->produits()->detach($Panier);
+        return redirect()->route('Panier.index')->with('success', 'Produit supprime avec succès !');   
+     }
+
     }
 }
