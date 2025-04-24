@@ -105,10 +105,29 @@ $products=$panier->produits()->where('panier_id',$panier->id)->get();
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $Panier)
     {
-        
+        $validated = $request->validate([
+            'quantity' => 'integer|min:1',
+        ]);
+    
+        $panier = Auth::user()->panier()->first();
+    
+        $existProduct = $panier->produits()->where('product_id', $Panier)->first();
+        if ($existProduct) {
+            $updated = $panier->produits()->updateExistingPivot($Panier, [
+                'quantity' => $request->quantity
+            ]);
+    
+            if ($updated) { 
+                return response()->json(['message' => "quantity updated successful"], 200);
+            }
+        }
+    
+        return response()->json(['message' => 'product not found in cart'], 404);
     }
+    
+    
 
     /**
      * Remove the specified resource from storage.

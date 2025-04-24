@@ -8,6 +8,7 @@ use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TypeFleurController;
 use App\Http\Controllers\PanierController;
+use App\Http\Controllers\AdminController;
 
 Route::get('register',[UserController::class,'showRegister'])->name('register');
 Route::post('register',[UserController::class,'register'])->name('register.store');
@@ -35,6 +36,12 @@ Route::resource('Product',ProduitController::class);
 
  Route::get('Shop',[ProduitController::class,'shop'])->name('shop.index');
  Route::resource('Panier',PanierController::class);
+//  gerer User :
+Route::get('Users',[AdminController::class,'users'])->name('Users.index');
+ Route::delete('Users/{userId}',[AdminController::class,'deleteUser'])->name('Users.delete');
+ Route::post('Users/{userId}',[AdminController::class,'banUset'])->name('Users.ban');
+ 
+
 
 
 ?>

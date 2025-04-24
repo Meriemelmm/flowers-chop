@@ -10,6 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <style>
         :where([class^="ri-"])::before { content: "\f3c2"; }
         
@@ -146,7 +148,7 @@
                             <div class="md:w-3/12 flex md:justify-center">
                                 <div class="quantity-selector">
                                     <button class="decrement">-</button>
-                                    <input type="number" value="{{$product->pivot->quantity}}" min="1" class="quantity">
+                                    <input type="number" value="{{$product->pivot->quantity}}" min="1" class="quantity" data-id="{{$product->id}}">
                                     <button class="increment">+</button>
                                 </div>
                             </div>
@@ -166,7 +168,7 @@
             </div>
             
             <!-- Récapitulatif de commande -->
-            <!-- <div class="lg:w-1/3">
+            <div class="lg:w-1/3">
                 <div class="bg-white rounded-lg shadow-sm p-6 sticky top-4">
                     <h2 class="text-xl font-semibold mb-6">Récapitulatif de commande</h2>
                     
@@ -215,7 +217,7 @@
                         <textarea rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Instructions spéciales pour la commande..."></textarea>
                     </div>
                 </div>
-            </div> -->
+            </div>
         </div>
     </div>
     
@@ -287,20 +289,25 @@
                 const decrement = selector.querySelector('.decrement');
                 const increment = selector.querySelector('.increment');
                 const input = selector.querySelector('.quantity');
+                const productId=input.getAttribute('data-id'); 
+                console.log(productId);
                 
                 decrement.addEventListener('click', () => {
                     if (parseInt(input.value) > 1) {
                         input.value = parseInt(input.value) - 1;
+                        updateQuantity(productId,input.value );
                     }
                 });
                 
                 increment.addEventListener('click', () => {
                     input.value = parseInt(input.value) + 1;
+                    updateQuantity(productId,input.value );
                 });
                 
                 input.addEventListener('change', () => {
                     if (parseInt(input.value) < 1 || isNaN(parseInt(input.value))) {
                         input.value = 1;
+                        updateQuantity(productId,input.value );
                     }
                 });
             });
@@ -315,6 +322,33 @@
                 });
             });
         });
+        function updateQuantity(Panier,quantity) {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    fetch(`/Panier/${Panier}`, {
+        method: 'PATCH',
+        headers: {
+            'X-CSRF-TOKEN': csrfToken,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ quantity: quantity })
+    })
+    .then(res => {
+        if (!res.ok) {
+            console.log("Problème lors de la modification de la quantité.");
+            return;
+        }
+        return res.json();
+    })
+    .then(data => {
+        console.log("Quantité mise à jour avec succès :", data);
+    })
+    .catch(error => {
+        console.error("Erreur réseau :", error);
+    });
+}
+
+
     </script>
 </body>
 </html>

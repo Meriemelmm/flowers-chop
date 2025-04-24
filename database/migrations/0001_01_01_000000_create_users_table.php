@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('address'); 
             $table->string('city'); 
             $table->enum('role', ['admin','client'])->default('client');
+          
            
             $table->string('postal_code', 10);
         });
