@@ -32,6 +32,10 @@ class Produit extends Model
         return $this->hasMany(ImageProduct::class,'product_id');
     }
     public function Panier(){
-        return $this->belongsToMany(Panier::class,'produit_panier','product_id','panier_id')->withPivot('quantity');;
+        return $this->belongsToMany(Panier::class,'produit_panier','product_id','panier_id')->withPivot('quantity');
     }
+    public function commandes(){
+        return $this->belongsToMany(Commande::class,'produit_commande','ProductID','CommandeID')->withpivot();
+    }
+   
 }

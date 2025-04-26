@@ -14,6 +14,7 @@ Route::get('register',[UserController::class,'showRegister'])->name('register');
 Route::post('register',[UserController::class,'register'])->name('register.store');
  Route::get('login',[UserController::class,'showLogin']);
  Route::post('login',[UserController::class,'login'])->name('login');
+ Route::post('logout',[UserController::class,'logout'])->name('logout');
 //  products flowers :
 // ajouter:
 //  Route::get('add',[ProduitController::class,'create'])->name('create');
@@ -40,6 +41,10 @@ Route::resource('Product',ProduitController::class);
 Route::get('Users',[AdminController::class,'users'])->name('Users.index');
  Route::delete('Users/{userId}',[AdminController::class,'deleteUser'])->name('Users.delete');
  Route::post('Users/{userId}',[AdminController::class,'banUset'])->name('Users.ban');
+ Route::get('/Home', function () {
+    return view('welcome');
+})->name('home');
+
  
 
 

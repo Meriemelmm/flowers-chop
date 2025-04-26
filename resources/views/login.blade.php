@@ -44,6 +44,7 @@
       <h2 class="text-2xl font-semibold text-center text-primary mb-6">Connexion</h2>
 
       <form action="{{route('login')}}" method="POST" class="space-y-4">
+      @csrf
         <div>
           <label for="email" class="block text-sm font-medium mb-1">Adresse email</label>
           <input type="email" id="email" name="email" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary outline-none" required>

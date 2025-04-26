@@ -169,55 +169,107 @@
             
             <!-- Récapitulatif de commande -->
             <div class="lg:w-1/3">
-                <div class="bg-white rounded-lg shadow-sm p-6 sticky top-4">
-                    <h2 class="text-xl font-semibold mb-6">Récapitulatif de commande</h2>
-                    
-                    <div class="space-y-4 mb-6">
-                        <div class="flex justify-between">
-                            <span class="text-gray-600">Sous-total</span>
-                            <span class="font-medium">158,70 €</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-600">Livraison</span>
-                            <span class="font-medium">-</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-600">Réduction</span>
-                            <span class="text-green-500 font-medium">0,00 €</span>
-                        </div>
-                    </div>
-                    
-                    <div class="border-t border-gray-200 pt-4 mb-6">
-                        <div class="flex justify-between text-lg font-semibold">
-                            <span>Total</span>
-                            <span class="text-primary">158,70 €</span>
-                        </div>
-                    </div>
-                    
-                    <div class="mb-6">
-                        <div class="flex items-start mb-4">
-                            <input type="checkbox" id="terms" class="mt-1 mr-3">
-                            <label for="terms" class="text-gray-600 text-sm">J'accepte les <a href="#" class="text-primary hover:underline">conditions générales</a> et la <a href="#" class="text-primary hover:underline">politique de confidentialité</a></label>
-                        </div>
-                        <button class="w-full py-3 bg-primary text-white font-medium rounded-button hover:bg-opacity-90 transition-colors mb-4">
-                            Passer la commande
-                        </button>
-                        <div class="text-center text-gray-500 text-sm">
-                            Paiement sécurisé avec
-                            <div class="flex justify-center space-x-2 mt-2">
-                                <i class="ri-visa-fill text-blue-700 text-xl"></i>
-                                <i class="ri-mastercard-fill text-red-500 text-xl"></i>
-                                <i class="ri-paypal-fill text-blue-500 text-xl"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="border-t border-gray-200 pt-4">
-                        <h3 class="font-medium mb-3">Ajouter une note</h3>
-                        <textarea rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Instructions spéciales pour la commande..."></textarea>
+          
+    <div class="bg-white rounded-lg shadow-sm p-6 sticky top-4">
+        <h2 class="text-xl font-semibold mb-6">Récapitulatif de commande</h2>
+        
+        <!-- Formulaire de commande -->
+        <form action="#" method="POST">
+            <!-- Informations du destinataire -->
+            <div class="mb-4">
+                <label for="recipient-name" class="block text-sm font-medium text-gray-700">Nom du destinataire</label>
+                <input type="text" id="recipient-name" name="recipient-name" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+            </div>
+            
+            <!-- Adresse -->
+            <div class="mb-4">
+                <label for="address" class="block text-sm font-medium text-gray-700">Adresse</label>
+                <input type="text" id="address" name="address" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+            </div>
+
+            <!-- Ville -->
+            <div class="mb-4">
+                <label for="city" class="block text-sm font-medium text-gray-700">Ville</label>
+                <input type="text" id="city" name="city" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+            </div>
+
+            <!-- Sélecteur de Pays -->
+            <div class="mb-4">
+                <label for="country" class="block text-sm font-medium text-gray-700">Pays</label>
+                <select id="country" name="country" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                    <option value="Maroc">Maroc</option>
+                </select>
+            </div>
+
+            <!-- Date de livraison -->
+            <div class="mb-4">
+                <label for="delivery-date" class="block text-sm font-medium text-gray-700">Date de livraison</label>
+                <input type="date" id="delivery-date" name="delivery-date" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+            </div>
+
+            <!-- Numéro de téléphone -->
+            <div class="mb-4">
+                <label for="phone" class="block text-sm font-medium text-gray-700">Numéro de téléphone</label>
+                <input type="tel" id="phone" name="phone"  required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Ex : 0612345678">
+            </div>
+
+            <!-- Récapitulatif des totaux -->
+            <div class="space-y-4 mb-6">
+                <div class="flex justify-between">
+                    <span class="text-gray-600">Sous-total</span>
+                    <span class="font-medium">158,70 €</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-600">Livraison</span>
+                    <span class="font-medium">-</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-600">Réduction</span>
+                    <span class="text-green-500 font-medium">0,00 €</span>
+                </div>
+            </div>
+            
+            <!-- Total (input hidden) et span pour afficher la valeur -->
+            <div class="border-t border-gray-200 pt-4 mb-6">
+                <div class="flex justify-between text-lg font-semibold">
+                    <span>Total</span>
+                    <!-- Input hidden pour le total -->
+                    <input type="hidden" id="total" name="total" value="158.70">
+                    <!-- Span pour afficher le total -->
+                    <span id="total-value" class="text-primary">158,70 €</span>
+                </div>
+            </div>
+
+            <!-- Termes et conditions -->
+            <div class="mb-6">
+                <div class="flex items-start mb-4">
+                    <input type="checkbox" id="terms" class="mt-1 mr-3">
+                    <label for="terms" class="text-gray-600 text-sm">J'accepte les <a href="#" class="text-primary hover:underline">conditions générales</a> et la <a href="#" class="text-primary hover:underline">politique de confidentialité</a></label>
+                </div>
+                <button type="submit" class="w-full py-3 bg-primary text-white font-medium rounded-button hover:bg-opacity-90 transition-colors mb-4">
+                    Passer la commande
+                </button>
+                <div class="text-center text-gray-500 text-sm">
+                    Paiement sécurisé avec
+                    <div class="flex justify-center space-x-2 mt-2">
+                        <i class="ri-visa-fill text-blue-700 text-xl"></i>
+                        <i class="ri-mastercard-fill text-red-500 text-xl"></i>
+                        <i class="ri-paypal-fill text-blue-500 text-xl"></i>
                     </div>
                 </div>
             </div>
+            
+            <!-- Ajouter une note -->
+            <div class="border-t border-gray-200 pt-4">
+                <h3 class="font-medium mb-3">Ajouter une note</h3>
+                <textarea rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Instructions spéciales pour la commande..."></textarea>
+            </div>
+        </form>
+    </div>
+</div>
+
+</div>
+
         </div>
     </div>
     

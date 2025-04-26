@@ -681,9 +681,14 @@ body {
                         <span class="user-role">Gérante</span>
                     </div>
                 </div>
-                <button class="logout-btn">
+                <form method="POST" action="{{ route('logout') }}">
+    @csrf
+     <button class="logout-btn">
                     <i class="fas fa-sign-out-alt"></i>
                 </button>
+</form>
+
+              
             </div>
         </aside>
 

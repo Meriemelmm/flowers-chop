@@ -19,14 +19,14 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-            $table->string('phone', 20);
-            $table->string('country');  
-            $table->string('address'); 
-            $table->string('city'); 
+            $table->string('phone', 20)->nullable();
+            $table->string('country')->nullable(); 
+            $table->string('address')->nullable();
+            $table->string('city')->nullable(); 
             $table->enum('role', ['admin','client'])->default('client');
           
            
-            $table->string('postal_code', 10);
+            $table->string('postal_code', 10)->nullable();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

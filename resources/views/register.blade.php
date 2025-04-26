@@ -79,7 +79,7 @@
 
   <div>
     <label for="country" class="block text-sm font-medium mb-1">Pays</label>
-    <input type="text" id="country" name="country" value="{{ old('country') }}" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary outline-none @error('country') border-red-500 @enderror" required>
+    <input type="text" id="country" name="country" value="{{ old('country') }}" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary outline-none @error('country') border-red-500 @enderror" >
     @error('country')
       <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
     @enderror
@@ -87,14 +87,14 @@
 
   <div>
     <label for="city" class="block text-sm font-medium mb-1">Ville</label>
-    <input type="text" id="city" name="city" value="{{ old('city') }}" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary outline-none @error('city') border-red-500 @enderror" required>
+    <input type="text" id="city" name="city" value="{{ old('city') }}" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary outline-none @error('city') border-red-500 @enderror" >
     @error('city')
       <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
     @enderror
   </div>
   <div>
     <label for="address" class="block text-sm font-medium mb-1">address</label>
-    <input type="text" id="address" name="address" value="{{ old('country') }}" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary outline-none @error('country') border-red-500 @enderror" required>
+    <input type="text" id="address" name="address" value="{{ old('country') }}" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary outline-none @error('country') border-red-500 @enderror" >
     @error('address')
       <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
     @enderror
@@ -102,7 +102,7 @@
 
   <div>
     <label for="postal_code" class="block text-sm font-medium mb-1">Code postal</label>
-    <input type="text" id="postal_code" name="postal_code" value="{{ old('postal_code') }}" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary outline-none @error('postal_code') border-red-500 @enderror" required>
+    <input type="text" id="postal_code" name="postal_code" value="{{ old('postal_code') }}" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary outline-none @error('postal_code') border-red-500 @enderror" >
     @error('postal_code')
       <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
     @enderror
@@ -110,7 +110,7 @@
 
   <div>
     <label for="phone" class="block text-sm font-medium mb-1">Téléphone</label>
-    <input type="tel" id="phone" name="phone" value="{{ old('phone') }}" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary outline-none @error('phone') border-red-500 @enderror" required>
+    <input type="tel" id="phone" name="phone" value="{{ old('phone') }}" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary outline-none @error('phone') border-red-500 @enderror" >
     @error('phone')
       <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
     @enderror
