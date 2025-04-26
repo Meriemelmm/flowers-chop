@@ -364,7 +364,7 @@
                 });
             });
             
-            // Suppression d'articles
+           
             document.querySelectorAll('.remove-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     this.closest('.cart-item').style.opacity = '0';

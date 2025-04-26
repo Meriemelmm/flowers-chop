@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('city')->nullable(); 
             $table->enum('role', ['admin','client'])->default('client');
+            $table->boolean('is_ban')->default(false);
           
            
             $table->string('postal_code', 10)->nullable();

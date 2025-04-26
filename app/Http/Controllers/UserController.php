@@ -71,11 +71,11 @@ class UserController  extends Controller
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => $validated['password'],
-            'phone' => $validated['phone'] ?? null,
-            'country' => $validated['country'] ?? null,
-            'address' => $validated['address'] ?? null,
-            'city' => $validated['city'] ?? null,
-            'postal_code' => $validated['postal_code'] ?? null,
+            'phone' => $validated['phone'] ,
+            'country' => $validated['country'] ,
+            'address' => $validated['address'] ,
+            'city' => $validated['city'] ,
+            'postal_code' => $validated['postal_code'] ,
             'role' => $isFirstUser ? 'admin' : 'client',
         ]);
     
@@ -136,7 +136,7 @@ class UserController  extends Controller
 
     $request->session()->regenerateToken(); 
 
-    return redirect('/login'); 
+    return redirect('/Home'); 
 }
     
     

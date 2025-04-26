@@ -23,7 +23,7 @@ class User extends Authenticatable
         'email',
         'password',
         'phone','country',
-        'city','address','postal_code','role'
+        'city','address','postal_code','role','is_ban'
     ];
     public function panier(){
         return $this->hasOne(Panier::class);

@@ -10,6 +10,7 @@ class AdminController extends Controller
 {
     public function users(){
       $users= User::paginate(20);
+    
      return view('Users',['users'=>$users]);
 
     }
@@ -21,9 +22,21 @@ class AdminController extends Controller
         }
 
     }
-    public function BanUser(Request $request,$userId){
-        $user= User::find($userId);
+    public function BanUser(Request $request,$id){
+        $user= User::find($id);
+       
         if($user){
+            if($user->is_ban ==false){
+                $user->is_ban =true;
+                $user->save;
+
+            }
+            else{
+                $user->is_ban = false;
+                $user->save();
+            }
+               return redirect()->route('Users.index'); 
+
            
         }
 

@@ -9,12 +9,14 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TypeFleurController;
 use App\Http\Controllers\PanierController;
 use App\Http\Controllers\AdminController;
+ use App\Http\Middleware\CheckRole;
 
 Route::get('register',[UserController::class,'showRegister'])->name('register');
 Route::post('register',[UserController::class,'register'])->name('register.store');
  Route::get('login',[UserController::class,'showLogin']);
  Route::post('login',[UserController::class,'login'])->name('login');
  Route::post('logout',[UserController::class,'logout'])->name('logout');
+ 
 //  products flowers :
 // ajouter:
 //  Route::get('add',[ProduitController::class,'create'])->name('create');
@@ -39,11 +41,14 @@ Route::resource('Product',ProduitController::class);
  Route::resource('Panier',PanierController::class);
 //  gerer User :
 Route::get('Users',[AdminController::class,'users'])->name('Users.index');
- Route::delete('Users/{userId}',[AdminController::class,'deleteUser'])->name('Users.delete');
- Route::post('Users/{userId}',[AdminController::class,'banUset'])->name('Users.ban');
+ Route::delete('Users/{userId}',[AdminController::class,'deletUser'])->name('Users.delete');
+ Route::post('Users/{id}',[AdminController::class,'banUset'])->name('Users.ban');
  Route::get('/Home', function () {
     return view('welcome');
 })->name('home');
+Route::get('/', function () {
+    return view('welcome');
+})
 
  
 
