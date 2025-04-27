@@ -85,39 +85,7 @@
 </head>
 <body class="bg-gray-50">
     <!-- Header -->
-    <header class="bg-white shadow-sm">
-        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
-            <a href="#" class="text-3xl font-['Pacifico'] text-primary">logo</a>
-            
-            <nav class="hidden md:flex space-x-8">
-                <a href="#" class="text-gray-800 hover:text-primary font-medium transition">Accueil</a>
-                <a href="#" class="text-gray-600 hover:text-primary font-medium transition">Boutique</a>
-                <a href="#" class="text-gray-600 hover:text-primary font-medium transition">Catégories</a>
-                <a href="#" class="text-gray-600 hover:text-primary font-medium transition">À propos</a>
-                <a href="#" class="text-gray-600 hover:text-primary font-medium transition">Contact</a>
-            </nav>
-            
-            <div class="flex items-center space-x-4">
-                <div class="relative w-10 h-10 flex items-center justify-center">
-                    <i class="ri-search-line text-gray-600 hover:text-primary transition cursor-pointer"></i>
-                </div>
-                <div class="relative w-10 h-10 flex items-center justify-center">
-                    <i class="ri-user-line text-gray-600 hover:text-primary transition cursor-pointer"></i>
-                </div>
-                <div class="relative w-10 h-10 flex items-center justify-center">
-                    <i class="ri-heart-line text-gray-600 hover:text-primary transition cursor-pointer"></i>
-                    <span class="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">2</span>
-                </div>
-                <div class="relative w-10 h-10 flex items-center justify-center">
-                    <i class="ri-shopping-cart-line text-gray-600 hover:text-primary transition cursor-pointer"></i>
-                    <span class="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
-                </div>
-                <button class="md:hidden w-10 h-10 flex items-center justify-center">
-                    <i class="ri-menu-line text-gray-600 text-xl"></i>
-                </button>
-            </div>
-        </div>
-    </header>
+   @include('UserNav')
 
     <!-- Hero Section -->
     <section class="hero-section w-full relative">
@@ -150,7 +118,7 @@
                     <div class="category-overlay absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 transition duration-300">
                         <div class="text-center p-4">
                             <h3 class="text-white text-xl font-bold mb-2">Roses</h3>
-                            <a href="#" class="inline-block bg-white text-primary px-4 py-2 rounded-button font-medium hover:bg-gray-100 transition whitespace-nowrap">Voir Plus</a>
+                            <a href="/Shop" class="inline-block bg-white text-primary px-4 py-2 rounded-button font-medium hover:bg-gray-100 transition whitespace-nowrap">Voir Plus</a>
                         </div>
                     </div>
                     <div class="absolute bottom-0 left-0 right-0 bg-white bg-opacity-90 p-3">
@@ -401,7 +369,7 @@
             </div>
             
             <div class="text-center mt-10">
-                <a href="#" class="inline-block border border-primary text-primary px-6 py-3 rounded-button font-medium hover:bg-primary hover:text-white transition whitespace-nowrap">Voir Tous les Produits</a>
+                <a href="/Shop" class="inline-block border border-primary text-primary px-6 py-3 rounded-button font-medium hover:bg-primary hover:text-white transition whitespace-nowrap">Voir Tous les Produits</a>
             </div>
         </div>
     </section>

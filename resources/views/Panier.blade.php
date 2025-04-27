@@ -73,37 +73,15 @@
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
-    <header class="bg-white shadow-sm">
-        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
-            <a href="#" class="text-3xl font-['Pacifico'] text-primary">Merylowers</a>
-            <nav class="hidden md:flex space-x-6">
-                <a href="#" class="hover:text-primary transition-colors">Accueil</a>
-                <a href="#" class="hover:text-primary transition-colors">Boutique</a>
-                <a href="#" class="hover:text-primary transition-colors">À propos</a>
-                <a href="#" class="hover:text-primary transition-colors">Contact</a>
-            </nav>
-            <div class="flex items-center space-x-4">
-                <div class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 cursor-pointer transition-colors">
-                    <i class="ri-search-line text-lg"></i>
-                </div>
-                <div class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 cursor-pointer transition-colors relative">
-                    <i class="ri-shopping-cart-2-line text-lg"></i>
-                    <span class="absolute -top-1 -right-1 bg-primary text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">3</span>
-                </div>
-                <div class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 cursor-pointer transition-colors md:hidden">
-                    <i class="ri-menu-line text-lg"></i>
-                </div>
-            </div>
-        </div>
-    </header>
+@include('UserNav')
 
     <div class="container mx-auto px-4 py-8">
         <div class="mb-6">
             <h1 class="text-3xl font-semibold mb-2">Votre Panier</h1>
             <div class="flex items-center text-gray-500">
-                <a href="#" class="text-primary hover:underline">Accueil</a>
+                <a href="/" class="text-primary hover:underline">Accueil</a>
                 <i class="ri-arrow-right-s-line mx-2"></i>
-                <a href="#" class="text-primary hover:underline">Boutique</a>
+                <a href="/Shop" class="text-primary hover:underline">Boutique</a>
                 <i class="ri-arrow-right-s-line mx-2"></i>
                 <span>Panier</span>
             </div>
@@ -143,7 +121,7 @@
                                 </div>
                             </div>
                             <div class="md:w-2/12 flex md:justify-center">
-                                <span class="text-primary font-semibold">{{$product->product_prix}}€</span>
+                                <span class="text-primary font-semibold span-prix">{{$product->product_prix}}€</span>
                             </div>
                             <div class="md:w-3/12 flex md:justify-center">
                                 <div class="quantity-selector">
@@ -399,6 +377,7 @@
         console.error("Erreur réseau :", error);
     });
 }
+
 
 
     </script>

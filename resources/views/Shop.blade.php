@@ -147,32 +147,7 @@
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
-    <header class="bg-white shadow-sm">
-        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
-            <a href="#" class="text-3xl font-['Pacifico'] text-primary">Merylowers</a>
-            <nav class="hidden md:flex space-x-6">
-                <a href="#" class="hover:text-primary transition-colors">Accueil</a>
-                <a href="#" class="text-primary font-medium">Boutique</a>
-                <a href="#" class="hover:text-primary transition-colors">À propos</a>
-                <a href="#" class="hover:text-primary transition-colors">Contact</a>
-
-            </nav>
-            <div class="flex items-center space-x-4">
-                <div class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 cursor-pointer transition-colors">
-                    <i class="ri-search-line text-lg"></i>
-                </div>
-                
-                <div class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 cursor-pointer transition-colors relative">
-                    <i class="ri-shopping-cart-2-line text-lg"></i>
-                    <span class="absolute -top-1 -right-1 bg-primary text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">3</span>
-                </div>
-                <div class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 cursor-pointer transition-colors md:hidden">
-                    <i class="ri-menu-line text-lg"></i>
-                </div>
-                
-            </div>
-        </div>
-    </header>
+@include('UserNav')
 
     <div class="container mx-auto px-4 py-8">
         <div class="flex flex-col md:flex-row gap-8">
@@ -289,19 +264,8 @@
             <!-- Zone d'affichage des produits -->
             <div class="flex-1">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
-                    <h1 class="text-2xl font-semibold mb-4 md:mb-0">Nos Fleurs <span class="text-gray-500 text-lg">(24 produits)</span></h1>
-                    <div class="custom-select w-full md:w-48">
-                        <div class="custom-select-selected" id="sortSelect">
-                            <span>Trier par: Popularité</span>
-                            <i class="ri-arrow-down-s-line"></i>
-                        </div>
-                        <div class="custom-select-options" id="sortOptions">
-                            <div class="custom-select-option" data-value="popularity">Popularité</div>
-                            <div class="custom-select-option" data-value="price-asc">Prix: croissant</div>
-                            <div class="custom-select-option" data-value="price-desc">Prix: décroissant</div>
-                            <div class="custom-select-option" data-value="newest">Nouveautés</div>
-                        </div>
-                    </div>
+                    <h1 class="text-2xl font-semibold mb-4 md:mb-0">Nos Fleurs <span class="text-gray-500 text-lg"></span></h1>
+                 
                 </div>
                 
                 <!-- Grille de produits -->
@@ -311,7 +275,7 @@
                     <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
                         <div class="relative h-64">
                             <img src="{{ asset('storage/' . $product->product_image) }}">
-                            <!-- <div class="absolute top-3 right-3 bg-primary text-white text-xs font-medium px-2 py-1 rounded-full">Populaire</div> -->
+                       
                         </div>
                         <div class="p-4">
                             <h3 class="font-medium text-lg mb-2">{{$product->product_name}}</h3>
@@ -339,6 +303,7 @@
                     
                   
                 </div>
+                
                 
                 <!-- Pagination -->
                 <div class="mt-10 flex justify-center">

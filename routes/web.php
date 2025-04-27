@@ -39,6 +39,7 @@ Route::resource('Product',ProduitController::class);
 
  Route::get('Shop',[ProduitController::class,'shop'])->name('shop.index');
  Route::resource('Panier',PanierController::class);
+ Route::get('UserNav',[PanierController::class,'totalProduct'])->name('total.product');
 //  gerer User :
 Route::get('Users',[AdminController::class,'users'])->name('Users.index');
  Route::delete('Users/{userId}',[AdminController::class,'deletUser'])->name('Users.delete');

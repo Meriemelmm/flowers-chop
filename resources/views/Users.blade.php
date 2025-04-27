@@ -886,8 +886,12 @@
                                   
                                 </tbody>
                             </table>
+
                         </div>
+                      
+
                         <div class="table-footer">
+                            
                             <div class="table-info">
                                 Affichage de 1 à 5 sur 42 clients
                             </div>
@@ -896,7 +900,7 @@
                                     <i class="fas fa-chevron-left"></i>
                                 </button>
                                 <button class="pagination-btn active">1</button>
-                                <button class="pagination-btn">2</button>
+                                <button class="pagination-btn">1</button>
                                 <button class="pagination-btn">3</button>
                                 <button class="pagination-btn">4</button>
                                 <button class="pagination-btn">

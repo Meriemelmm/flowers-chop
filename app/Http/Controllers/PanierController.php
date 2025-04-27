@@ -21,6 +21,8 @@ $products=$panier->produits()->where('panier_id',$panier->id)->get();
 
   if($products){
    
+   
+   
       return view('Panier',['products'=>$products]);
   }
    
@@ -56,28 +58,55 @@ $products=$panier->produits()->where('panier_id',$panier->id)->get();
     try {
         
         $existingProduct = $panier->produits()->where('product_id', $request->product_id)->first();
+     
 
         if ($existingProduct) {
+            $quantity=$existingProduct->pivot->quantity + 1;
            
-            $updated = $panier->produits()->updateExistingPivot($existingProduct->pivot->product_id, [
-                'quantity' => $existingProduct->pivot->quantity + 1
-            ]);
-
           
-            if ($updated) {
-               
-                return redirect()->route('Shop')->with('success', 'Produit ajouté au panier');
-            } else {
-                return back()->with('error', 'Échec de la mise à jour de la quantité.');
-            }
-        } else {
+             if($existingProduct->product_stock >0){
+                $updated = $panier->produits()->updateExistingPivot($existingProduct->pivot->product_id, [
+                    'quantity' =>  $quantity
+                ]);
+                
+    
+              
+                if ($updated) {
+                   
+                    $existingProduct->product_stock-=1;
+                    $existingProduct->save();
+                    return back()->with('success', 'Produit ajouté au panier');
+                } else {
+                    return back()->with('error', 'Échec de la mise à jour de la quantité.');
+                } 
+             }
+             else {
+                return redirect()->route('Shop')->with('delimite', 'delimite stock '); 
+             }
           
-            $create = $panier->produits()->attach($request->product_id, ['quantity' => 1]);
-
+           
+            
+        }
+         else {
+           
+           
+          
+           $create = $panier->produits()->attach($request->product_id, ['quantity' => 1]);
+        
+          
+  
           
             if ($create) {
+           
+                $existingProduct = $panier->produits()->where('product_id', $create->product_id)->first();
+                $existingProduct->product_stock-=1;
+                $existingProduct->save();
+            
+         
                 return redirect()->route('Shop')->with('success', 'Produit ajouté au panier');
             } else {
+              
+               
                 return back()->with('error', 'Échec de l\'ajout du produit au panier.');
             }
         }
@@ -86,6 +115,13 @@ $products=$panier->produits()->where('panier_id',$panier->id)->get();
     }
 }
 
+public function totalProduct(){
+    $panier=Auth::user()->panier()->first();
+
+   $products=$panier->produits()->where('panier_id',$panier->id)->get();
+   $count=$products->count();
+ 
+}
     /**
      * Display the specified resource.
      */
@@ -114,7 +150,10 @@ $products=$panier->produits()->where('panier_id',$panier->id)->get();
         $panier = Auth::user()->panier()->first();
     
         $existProduct = $panier->produits()->where('product_id', $Panier)->first();
+      
+        
         if ($existProduct) {
+        
             $updated = $panier->produits()->updateExistingPivot($Panier, [
                 'quantity' => $request->quantity
             ]);
@@ -139,7 +178,13 @@ $products=$panier->produits()->where('panier_id',$panier->id)->get();
 
        $product=$panier->produits()->where('product_id',$Panier)->first();
        if($product){
+        $quantity=$product->pivot->quantity;
+        $product->product_stock+=$quantity;
+        $product->save();
+       
+    
         $panier->produits()->detach($Panier);
+      
         return redirect()->route('Panier.index')->with('success', 'Produit supprime avec succès !');   
      }
 
