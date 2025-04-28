@@ -6,16 +6,16 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Panier;
- 
+
 use Illuminate\Validation\Rules\Password;
 
- use Illuminate\Support\Facades\Validate;
- use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validate;
+use Illuminate\Support\Facades\Auth;
 // use Illuminate\Auth\Events\Validated;
 
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Validated;
- 
+
 
 
 class UserController  extends Controller
@@ -25,7 +25,10 @@ class UserController  extends Controller
      */
     public function showRegister()
     {
-        return view('register');
+        if (Auth::check()) {
+            return redirect()->back()->withFallback('/Shop');
+        }
+        return view('Auth.register');
     }
 
     /**
@@ -41,105 +44,88 @@ class UserController  extends Controller
      */
     public function register(Request $request)
     {
-        $isFirstUser = User::count() === 0;
-    
-        $rules = [
+dd("test");
+
+        $validated =  $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|unique:users|email|lowercase',
             'password' => 'required|string|min:8|confirmed',
-        ];
-    
-        if (!$isFirstUser) {
-            $rules['phone'] = 'required|string|max:20';
-            $rules['country'] = 'required|string|max:255';
-            $rules['address'] = 'required|string|max:255';
-            $rules['city'] = 'required|string|max:255';
-            $rules['postal_code'] = 'required|string|max:10';
-        } else {
-            $rules['phone'] = 'nullable|string|max:20';
-            $rules['country'] = 'nullable|string|max:255';
-            $rules['address'] = 'nullable|string|max:255';
-            $rules['city'] = 'nullable|string|max:255';
-            $rules['postal_code'] = 'nullable|string|max:10';
-        }
-    
-        // Validation
-        $validated = $request->validate($rules);
-    
-        // Création de l'utilisateur
+            'phone' => 'required|string|max:20',
+            'country' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
+            'postal_code' => 'required|string|max:10',
+
+        ]);
+
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => $validated['password'],
-            'phone' => $validated['phone'] ,
-            'country' => $validated['country'] ,
-            'address' => $validated['address'] ,
-            'city' => $validated['city'] ,
-            'postal_code' => $validated['postal_code'] ,
-            'role' => $isFirstUser ? 'admin' : 'client',
+            'phone' => $validated['phone'],
+            'country' => $validated['country'],
+            'address' => $validated['address'],
+            'city' => $validated['city'],
+            'role' => 'client',
+
+
+            'postal_code' => $validated['postal_code'],
         ]);
-    
         if ($user) {
             Auth::login($user);
-    
+
             if ($user->role === "client") {
-                Panier::create([
-                    'user_id' => $user->id
-                ]);
-    
-                return redirect('/Home');
 
+                $panier = Panier::create(['user_id' => $user->id]);
+                return redirect('/Shop');
             }
-    
-            return redirect('/Product'); 
+
+            return "good job ";
+        } else {
+            return "not job ";
         }
-    
-        return "Erreur lors de l'enregistrement.";
     }
-    
 
 
 
 
-
-    public function showLogin(){
-        return view('login');
+    public function showLogin()
+    {
+        if (Auth::check()) {
+            return redirect()->back()->withFallback('/Shop');
+        }
+        return view('Auth.login');
     }
     public function login(Request $request)
     {
         $validated = $request->validate([
             'email' => 'required|email|lowercase',
-            'password' => 'required|string',
+            'password' => 'required|string'
         ]);
     
         if (Auth::attempt($validated)) {
-            $user = Auth::user(); 
+            $user = Auth::user(); // Get the logged-in user
     
             if ($user->role === 'admin') {
-                return redirect('/Product'); 
-            } elseif ($user->role === 'client') {
-                return redirect('/Home');
+                return redirect('/Product'); // Redirect admin to dashboard
             } else {
-                return redirect('/Home'); 
+                return redirect('/Shop'); // Redirect others (clients) to home
             }
+    
         } else {
-            return back()->withErrors([
-                'email' => 'Les informations de connexion sont incorrectes.',
-            ]);
+            return "Login failed!";
         }
     }
+
     public function logout(Request $request)
-{
-    Auth::logout(); 
+    {
+        Auth::logout(); 
+        $request->session()->invalidate(); 
+        $request->session()->regenerateToken(); 
 
-    $request->session()->invalidate(); 
+        return redirect('/login'); 
+    }
 
-    $request->session()->regenerateToken(); 
-
-    return redirect('/login'); 
-}
-    
-    
 
     /**
      * Display the specified resource.
@@ -152,21 +138,15 @@ class UserController  extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        
-    }
+    public function edit(string $id) {}
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        
-    }
+    public function update(Request $request, string $id) {}
 
     /**
      * Remove the specified resource from storage.
      */
-    
+    public function destroy(string $id) {}
 }

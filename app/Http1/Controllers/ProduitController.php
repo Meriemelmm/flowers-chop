@@ -7,7 +7,6 @@ use App\Models\TypeFleur;
 use App\Models\Category;
 use App\Models\ImageProduct;
 use Illuminate\Http\Request;
-use App\Helpers\CartHelper;
 
  use Illuminate\Database\Eloquent\Relations\BelongsTo;
  use Illuminate\Support\Facades\Storage;
@@ -23,18 +22,17 @@ class ProduitController extends Controller
 
         $types= TypeFleur::all();
         $categories=Category::all();
-        $products = Produit::paginate(2);
+        $products = Produit::paginate(20);
         
-         return view('dashboard.Product',['products'=>$products,'types'=>$types,'categories'=>$categories]);
+         return view('Product',['products'=>$products,'types'=>$types,'categories'=>$categories]);
     }
     // COTE CLIENT :
     public function shop()
     {
 
-        $products = Produit::paginate(2);
-        $count = CartHelper::count();
+        $products = Produit::paginate(20);
         
-        return view('shop.Shop',['products'=>$products,'count'=>$count]);
+        return view('Shop',['products'=>$products]);
        
     }
 
@@ -52,58 +50,60 @@ class ProduitController extends Controller
      * Store a newly created resource in storage.
      */
 
-     public function store(Request $request)
-     {
-         $validated = $request->validate([
-             'product_name' => 'required|string|max:255',
-             'product_description' => 'required|string|max:255',
-             'product_stock' => 'required|integer|min:0',
-             'product_prix' => 'required|numeric|min:0',
-             'product_image' => 'required|image|mimes:png,jpg,jpeg,svg',
-             'type_ids' => 'required|array',
-             'type_ids.*' => 'exists:types,id',
-             'images' => 'required|array',
-             'images.*' => 'image|mimes:png,jpg,jpeg,svg',
-             'category_id' => 'required|exists:categories,id',
-         ]);
+public function store(Request $request)
+{
+    $validated = $request->validate([
+        'product_name' => 'required|string|max:255',
+        'product_description' => 'required|string|max:255',
+        'product_stock' => 'required|integer|min:0',
+        'product_prix' => 'required|numeric|min:0',
+        'product_image' => 'required||image|mimes:png,jpg,jpeg,svg',
+        'type_ids' => 'required|array',
+        'type_ids.*' => 'exists:types,id',
+        'images' => 'required|array',
+        'images.*' => 'required|image|mimes:png,jpg,jpeg,svg',
+        'category_id' => 'required|exists:categories,id',
+    ]);
+   
+
+
+    $filename = $request->file('product_image')->store('ProductImage', 'public');
+
+    $product = Produit::create([
+        'product_name' => $request->product_name,
+        'product_description' => $request->product_description,
+        'product_stock' => $request->product_stock,
+        'product_prix' => $request->product_prix,
+        'product_image' => $filename,
+        'category_id' => $request->category_id
+    ]);
+    
+
+    if ($product) {
+        $product->types()->attach($request->type_ids);
      
-         $productImage = $request->file('product_image')->store('ProductImage', 'public');
-     
-         $product = Produit::create([
-             'product_name'        => $validated['product_name'],
-             'product_description' => $validated['product_description'],
-             'product_stock'       => $validated['product_stock'],
-             'product_prix'        => $validated['product_prix'],
-             'product_image'       => $productImage,
-             'category_id'         => $validated['category_id'],
-         ]);
-     
-         $product->types()->attach($validated['type_ids']);
-     
-         foreach ($validated['images'] as $image) {
-             $storedImage = $image->store('images', 'public');
-             ImageProduct::create([
-                 'product_id' => $product->id,
-                 'image'      => $storedImage,
-             ]);
-         }
-     
-         return redirect()->route('Product.index')->with('success', 'Produit ajouté avec succès !');
-     }
-     
+
+        foreach ($request->images as $image) {
+            $fileImage = $image->store('images', 'public');
+            ImageProduct::create([
+                'product_id' => $product->id,
+                'image' => $fileImage
+            ]);
+        }
+
+        return redirect()->route('Product.index')->with('success', 'Produit supprime avec succès !');
+    } else {
+        return "errors";
+    }
+}
 
 
     /**
      * Display the specified resource.
      */
-    public function show($produit)
+    public function show(Produit $produit)
     {
-        $product = Produit::findOrfail($produit);
-        
-          $pictures = $product->pectures;
-          $count = CartHelper::count();
-         
-       return view("shop.detail" , compact("product","pictures",'count'));
+        //
     }
 
     /**
@@ -123,7 +123,7 @@ class ProduitController extends Controller
      */
     public function update(Request $request, $Produit)
 {
-    $product = Produit::findOrFail($Produit);
+    $product = Produit::findOrFail($id);
 
     if ($product) {
       
@@ -193,7 +193,7 @@ class ProduitController extends Controller
 
      
         if ($updated) {
-            return redirect()->back();
+            return "updated ";
         } else {
             return "update ykué";
         }

@@ -13,7 +13,7 @@ class AdminController extends Controller
     public function users(){
       $users= User::paginate(20);
     
-     return view('dashboard.users',['users'=>$users]);
+     return view('Users',['users'=>$users]);
 
     }
     public function deletUser(Request $request,$userId){

@@ -14,7 +14,7 @@ class TypeFleurController extends Controller
     {
          $Types=TypeFleur::all();
          if($Types){
-            return view('dashboard.TypeFleur',['types'=>$Types]);  
+            return view('TypeFleur',['types'=>$Types]);  
          }
        
     }

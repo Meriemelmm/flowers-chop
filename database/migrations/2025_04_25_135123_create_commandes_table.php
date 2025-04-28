@@ -20,7 +20,8 @@ return new class extends Migration
             $table->decimal('total_prix', 8, 2);
 
             
-            $table->enum('status', ['en_attente', 'en_cours', 'expediee', 'livree', 'annulee', 'remboursee'])->default('en_attente');
+            $table->enum('status', ['pending', 'completed', 'cancelled'])->default('pending');
+
 
 
         });

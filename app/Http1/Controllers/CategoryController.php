@@ -12,8 +12,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories=Category::all();
-        return view('dashboard.Categories',['categories'=>$categories]);
+$categories=Category::all();
+        return view('Categories',['categories'=>$categories]);
     }
 
     /**
@@ -35,11 +35,11 @@ class CategoryController extends Controller
         ]);
         
         $category= Category::create(['category_name'=>$validated['category_name']]);
-        // if($category){
+        if($category){
 
             return redirect()->route('categories.index')->with('success', 'Produit cree avec succès !');
 
-        // }
+        }
     }
 
     /**
@@ -68,15 +68,15 @@ class CategoryController extends Controller
         
         $categoryId= Category::find($category);
         $validated = $request->validate([
-            'category_name' => ['required', 'string', 'max:255'],
+            'category_name' => ['required', 'string', 'regex:/^[A-Za-zÀ-ÿ\s]+$/', 'max:255'],
         ]);
         $categoryId->category_name=$validated['category_name'];
-        $categoryId->save();
-        // if($update){
+        $update=$categoryId->save();
+        if($update){
 
             return redirect()->route('categories.index')->with('success', 'Produit modifier avec succès !');
 
-        // }
+        }
 
       
     }
