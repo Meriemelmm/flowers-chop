@@ -9,6 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 
+
     <style>
        /* Reset and Base Styles */
 * {
@@ -30,113 +31,109 @@ body {
 }
 
 /* Sidebar Styles */
-.sidebar {
-    width: 250px;
-    background: linear-gradient(135deg, #4a8b7e 0%, #2c5e50 100%);
-    color: white;
-    display: flex;
-    flex-direction: column;
-    transition: all 0.3s;
-}
 
-.logo {
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(135deg, #4a8b7e 0%, #2c5e50 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s;
+        }
 
-.logo i {
-    margin-right: 10px;
-    font-size: 1.8rem;
-}
+        .logo {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
 
-.sidebar-nav {
-    flex: 1;
-    padding: 20px 0;
-}
+        .logo i {
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
 
-.sidebar-nav ul {
-    list-style: none;
-}
+        .sidebar-nav {
+            flex: 1;
+            padding: 20px 0;
+        }
 
-.sidebar-nav li a {
-    display: flex;
-    align-items: center;
-    padding: 12px 20px;
-    color: rgba(255, 255, 255, 0.8);
-    text-decoration: none;
-    transition: all 0.3s;
-}
+        .sidebar-nav ul {
+            list-style: none;
+        }
 
-.sidebar-nav li a i {
-    margin-right: 10px;
-    font-size: 1.1rem;
-}
+        .sidebar-nav li a {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
 
-.sidebar-nav li a:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: white;
-}
+        .sidebar-nav li a i {
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
 
-.sidebar-nav li.active a {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    border-left: 4px solid #ffb74d;
-}
+        .sidebar-nav li a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
 
-.sidebar-footer {
-    padding: 15px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
+        .sidebar-nav li.active a {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            border-left: 4px solid #ffb74d;
+        }
 
-.user-profile {
-    display: flex;
-    align-items: center;
-}
+        .sidebar-footer {
+            padding: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
 
-.user-profile img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
-    object-fit: cover;
-}
+        .user-profile {
+            display: flex;
+            align-items: center;
+        }
 
-.user-info {
-    display: flex;
-    flex-direction: column;
-}
+        .user-profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+        }
 
-.user-name {
-    font-size: 0.9rem;
-    font-weight: 600;
-}
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
 
-.user-role {
-    font-size: 0.8rem;
-    opacity: 0.8;
-}
+        .user-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
 
-.logout-btn {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.2rem;
-    cursor: pointer;
-    opacity: 0.8;
-    transition: opacity 0.3s;
-}
+        .user-role {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
 
-.logout-btn:hover {
-    opacity: 1;
-}
-
+        .logout-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
 /* Main Content Styles */
 .main-content {
     flex: 1;
@@ -628,69 +625,7 @@ body {
 <body>
     <div class="dashboard-container">
         <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="logo">
-                <i class="fas fa-spa"></i>
-                <span>Merylowers</span>
-            </div>
-            <nav class="sidebar-nav">
-                <ul>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-tachometer-alt"></i>
-                            <span>Tableau de bord</span>
-                        </a>
-                    </li>
-                    <li class="active">
-                        <a href="#">
-                            <i class="fas fa-store"></i>
-                            <span>Produits</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-shopping-basket"></i>
-                            <span>Commandes</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-users"></i>
-                            <span>Clients</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-chart-line"></i>
-                            <span>Statistiques</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-cog"></i>
-                            <span>Paramètres</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            <div class="sidebar-footer">
-                <div class="user-profile">
-                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profile">
-                    <div class="user-info">
-                        <span class="user-name">Sophie Martin</span>
-                        <span class="user-role">Gérante</span>
-                    </div>
-                </div>
-                <form method="POST" action="{{ route('logout') }}">
-    @csrf
-     <button class="logout-btn">
-                    <i class="fas fa-sign-out-alt"></i>
-                </button>
-</form>
-
-              
-            </div>
-        </aside>
+      @include('AdminNav')
 
         <!-- Main Content -->
         <main class="main-content">
@@ -812,7 +747,7 @@ body {
 
 
 
-                                        <td>
+                                        <td  style="display:flex">
                                         <button class="btn-action btn-delete" id="btnUpdate" onclick='update(this)' data-id="{{$product->id}}"
                                         data-name="{{$product->product_name}}" 
                                         data-description="{{$product->product_description}}" 

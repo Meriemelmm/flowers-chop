@@ -10,6 +10,7 @@ use App\Http\Controllers\TypeFleurController;
 use App\Http\Controllers\PanierController;
 use App\Http\Controllers\AdminController;
  use App\Http\Middleware\CheckRole;
+ use App\Http\Controllers\CommandeController;
 
 Route::get('register',[UserController::class,'showRegister'])->name('register');
 Route::post('register',[UserController::class,'register'])->name('register.store');
@@ -43,13 +44,20 @@ Route::resource('Product',ProduitController::class);
 //  gerer User :
 Route::get('Users',[AdminController::class,'users'])->name('Users.index');
  Route::delete('Users/{userId}',[AdminController::class,'deletUser'])->name('Users.delete');
- Route::post('Users/{id}',[AdminController::class,'banUset'])->name('Users.ban');
+ Route::post('Users/{id}',[AdminController::class,'banUser'])->name('Users.ban');
+//  statstique:
+Route::get('/bord',[AdminController::class,'statistique'])->name('static');
  Route::get('/Home', function () {
     return view('welcome');
 })->name('home');
 Route::get('/', function () {
     return view('welcome');
-})
+});
+// commandes :
+
+
+Route::post('/commande/{panier}', [CommandeController::class, 'ajoute_Commande'])->name('commande.ajouter');
+
 
  
 

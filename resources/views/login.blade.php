@@ -27,17 +27,7 @@
 </head>
 <body class="bg-gray-50 text-gray-800">
 
-  <header class="bg-white shadow-sm">
-    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
-      <a href="#" class="text-3xl font-['Pacifico'] text-primary">Merylowers</a>
-      <nav class="hidden md:flex space-x-6">
-        <a href="#" class="hover:text-primary transition-colors">Accueil</a>
-        <a href="#" class="hover:text-primary transition-colors">Boutique</a>
-        <a href="#" class="hover:text-primary transition-colors">À propos</a>
-        <a href="#" class="hover:text-primary transition-colors">Contact</a>
-      </nav>
-    </div>
-  </header>
+  @include('UserNav')
 
   <main class="min-h-screen flex items-center justify-center px-4 py-12">
     <div class="bg-white shadow-md rounded-lg p-8 w-full max-w-md">

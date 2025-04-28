@@ -116,22 +116,23 @@
                                          class="w-20 h-20 object-cover rounded-lg">
                                     <div>
                                         <h3 class="font-medium">{{$product->product_name}}</h3>
-                                        <p class="text-gray-500 text-sm">Couleur: Rose</p>
+                                        <!-- <p class="text-gray-500 text-sm">Couleur: Rose</p> -->
                                     </div>
                                 </div>
                             </div>
                             <div class="md:w-2/12 flex md:justify-center">
-                                <span class="text-primary font-semibold span-prix">{{$product->product_prix}}€</span>
+                                <span class="prix text-primary font-semibold span-prix">{{$product->product_prix}}DH</span>
                             </div>
                             <div class="md:w-3/12 flex md:justify-center">
                                 <div class="quantity-selector">
                                     <button class="decrement">-</button>
                                     <input type="number" value="{{$product->pivot->quantity}}" min="1" class="quantity" data-id="{{$product->id}}">
                                     <button class="increment">+</button>
+                                   
                                 </div>
                             </div>
                             <div class="md:w-2/12 flex md:justify-end">
-                                <span class="text-primary font-semibold">45,90 €</span>
+                                <span  class=" total text-primary font-semibold">{{$product->product_prix*$product->pivot->quantity}} DH</span>
                             </div>
                         </div>
                     </div>
@@ -152,29 +153,30 @@
         <h2 class="text-xl font-semibold mb-6">Récapitulatif de commande</h2>
         
         <!-- Formulaire de commande -->
-        <form action="#" method="POST">
+        <form action="{{route('commande.ajouter',['panier'=>Auth::user()->panier->id])}}" method="POST">
+        @csrf
             <!-- Informations du destinataire -->
             <div class="mb-4">
                 <label for="recipient-name" class="block text-sm font-medium text-gray-700">Nom du destinataire</label>
-                <input type="text" id="recipient-name" name="recipient-name" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                <input type="text" id="recipient-name" name="recipient-name"  class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
             </div>
             
             <!-- Adresse -->
             <div class="mb-4">
                 <label for="address" class="block text-sm font-medium text-gray-700">Adresse</label>
-                <input type="text" id="address" name="address" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                <input type="text" id="address" name="address"  class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
             </div>
 
             <!-- Ville -->
             <div class="mb-4">
                 <label for="city" class="block text-sm font-medium text-gray-700">Ville</label>
-                <input type="text" id="city" name="city" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                <input type="text" id="city" name="city"  class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
             </div>
 
             <!-- Sélecteur de Pays -->
             <div class="mb-4">
                 <label for="country" class="block text-sm font-medium text-gray-700">Pays</label>
-                <select id="country" name="country" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                <select id="country" name="country"  class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
                     <option value="Maroc">Maroc</option>
                 </select>
             </div>
@@ -182,20 +184,20 @@
             <!-- Date de livraison -->
             <div class="mb-4">
                 <label for="delivery-date" class="block text-sm font-medium text-gray-700">Date de livraison</label>
-                <input type="date" id="delivery-date" name="delivery-date" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                <input type="date" id="delivery-date" name="delivery-date"  class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
             </div>
 
             <!-- Numéro de téléphone -->
             <div class="mb-4">
                 <label for="phone" class="block text-sm font-medium text-gray-700">Numéro de téléphone</label>
-                <input type="tel" id="phone" name="phone"  required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Ex : 0612345678">
+                <input type="tel" id="phone" name="phone"   class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Ex : 0612345678">
             </div>
 
             <!-- Récapitulatif des totaux -->
             <div class="space-y-4 mb-6">
                 <div class="flex justify-between">
                     <span class="text-gray-600">Sous-total</span>
-                    <span class="font-medium">158,70 €</span>
+                    <span class="font-medium">158,70 DH</span>
                 </div>
                 <div class="flex justify-between">
                     <span class="text-gray-600">Livraison</span>
@@ -203,7 +205,7 @@
                 </div>
                 <div class="flex justify-between">
                     <span class="text-gray-600">Réduction</span>
-                    <span class="text-green-500 font-medium">0,00 €</span>
+                    <span class="text-green-500 font-medium">0,00 DH</span>
                 </div>
             </div>
             
@@ -212,9 +214,9 @@
                 <div class="flex justify-between text-lg font-semibold">
                     <span>Total</span>
                     <!-- Input hidden pour le total -->
-                    <input type="hidden" id="total" name="total" value="158.70">
+                    <input type="hidden" id="total" name="total" value="{{$total}}">
                     <!-- Span pour afficher le total -->
-                    <span id="total-value" class="text-primary">158,70 €</span>
+                    <span id="total-value" class="text-primary"> {{$total}} DH</span>
                 </div>
             </div>
 
@@ -319,25 +321,28 @@
                 const decrement = selector.querySelector('.decrement');
                 const increment = selector.querySelector('.increment');
                 const input = selector.querySelector('.quantity');
+               
                 const productId=input.getAttribute('data-id'); 
+                
                 console.log(productId);
                 
                 decrement.addEventListener('click', () => {
                     if (parseInt(input.value) > 1) {
                         input.value = parseInt(input.value) - 1;
-                        updateQuantity(productId,input.value );
+                        updateQuantity(productId,input.value,'decrement');
                     }
                 });
                 
                 increment.addEventListener('click', () => {
                     input.value = parseInt(input.value) + 1;
-                    updateQuantity(productId,input.value );
+
+                    updateQuantity(productId,input.value,'increment' );
                 });
                 
                 input.addEventListener('change', () => {
                     if (parseInt(input.value) < 1 || isNaN(parseInt(input.value))) {
                         input.value = 1;
-                        updateQuantity(productId,input.value );
+                        updateQuantity(productId,input.value, );
                     }
                 });
             });
@@ -352,7 +357,7 @@
                 });
             });
         });
-        function updateQuantity(Panier,quantity) {
+        function updateQuantity(Panier,quantity,action) {
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
     fetch(`/Panier/${Panier}`, {
@@ -361,7 +366,11 @@
             'X-CSRF-TOKEN': csrfToken,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ quantity: quantity })
+        body: JSON.stringify({ quantity: quantity, 
+             action: action
+            
+
+         })
     })
     .then(res => {
         if (!res.ok) {

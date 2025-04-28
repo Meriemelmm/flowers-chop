@@ -726,64 +726,7 @@
 <body>
     <div class="dashboard-container">
         <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="logo">
-               
-                <span>Merylowers</span>
-            </div>
-            <nav class="sidebar-nav">
-                <ul>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-tachometer-alt"></i>
-                            <span>Tableau de bord</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-store"></i>
-                            <span>Produits</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-shopping-basket"></i>
-                            <span>Commandes</span>
-                        </a>
-                    </li>
-                    <li class="active">
-                        <a href="#">
-                            <i class="fas fa-users"></i>
-                            <span>Clients</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-chart-line"></i>
-                            <span>Statistiques</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-cog"></i>
-                            <span>Paramètres</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            <div class="sidebar-footer">
-                <div class="user-profile">
-                   
-                    <div class="user-info">
-                        <span class="user-name">Sophie Martin</span>
-                        <span class="user-role">Gérante</span>
-                    </div>
-                </div>
-                <button class="logout-btn">
-                    <i class="fas fa-sign-out-alt"></i>
-                </button>
-            </div>
-        </aside>
+        @include('AdminNav')
 
         <!-- Main Content -->
         <main class="main-content">
@@ -841,14 +784,14 @@
                                        
                                         <td data-label="Statut">
                                             @if($user->is_ban ==false)
-                                            <form method="POST" method="{{route('Users.ban',['id'=>$user->id])}}">
+                                            <form method="POST" action="{{route('Users.ban',['id'=>$user->id])}}">
                                             @csrf
                                             <button class="btn-action btn-message">
                                                 <i class="fas fa-user-check" style="color:green;"></i>
                                             </button> actif 
                                             </form>
                                             @else
-                                            <form method="POST" method="{{route('Users.ban',['id'=>$user->id])}}">
+                                            <form method="POST" action="{{route('Users.ban',['id'=>$user->id])}}">
                                             @csrf
                                             <button class="btn-action btn-message">
                                                 <i class="fas fa-user-slash"style="color:red;"></i>
@@ -857,17 +800,21 @@
                                             @endif
                                         </td>
                                         <td data-label="Actions" style="display:flex">
-                                            <button class="btn-action btn-view" onclick='openClientDetail({{$user->id}})' data-id="{{$user->id}}" id="client"
-                                        data-name="{{$user->name}}" 
-                                        data-email="{{$user->email}}" 
-                                        data-phone="{{$user->phone}}"
-                                        data-address="{{$user->address}}"
-                                        data-city="{{$user->city}}"
-                                        data-postal_code="{{$user->postal_code}}"
-                                        data-created_at="{{$user->created_at}}"
-                                        data-status="{{$user->is_ban}}">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
+                                        <button class="btn-action btn-view" onclick="openClientDetail(this)" 
+    data-id="{{$user->id}}"
+    data-name="{{$user->name}}" 
+    data-email="{{$user->email}}" 
+    data-phone="{{$user->phone}}"
+    data-address="{{$user->address}}"
+    data-city="{{$user->city}}"
+    data-postal_code="{{$user->postal_code}}"
+    data-created_at="{{$user->created_at}}"
+    data-status="{{$user->is_ban}}"
+    data-country="{{$user->country}}"
+    data-inscription="{{$user->created_at}}">
+    <i class="fas fa-eye"></i>
+</button>
+
                                             <form action="{{route('Users.delete',['userId'=>$user->id])}}" onsubmit="return confirm('Voulez-vous vraiment SUPPRIMER ce Client ?');" method="POST">
                                             @csrf
                                             @method('DELETE')
@@ -942,12 +889,12 @@
                                 <div class="info-label">Date d'inscription:</div>
                                 <div class="info-value" id="clientJoinDate">15 janvier 2022</div>
                             </div>
-                            <div class="client-info-detail">
+                            <!-- <div class="client-info-detail">
                                 <div class="info-label">Statut:</div>
                                 <div class="info-value">
                                     <span class="client-status status-premium">Premium</span>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
 
                         <div class="client-section">
@@ -972,7 +919,7 @@
                     </div>
 
                     <div>
-                        <div class="client-section">
+                        <!-- <div class="client-section">
                             <h4>Historique des commandes</h4>
                             <table class="client-orders-list">
                                 <thead>
@@ -987,9 +934,9 @@
                                     <!-- Orders will be added by JavaScript -->
                                 </tbody>
                             </table>
-                        </div>
+                        <!-- </div> -->
 
-                        <div class="client-section">
+                        <!-- <div class="client-section">
                             <h4>Statistiques</h4>
                             <div class="client-stats">
                                 <div class="stat-card">
@@ -1005,7 +952,7 @@
                                     <div class="stat-label">Moyenne/commande</div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
@@ -1026,28 +973,22 @@
         let users=@json($users);
    
       
-        function openClientDetail(id) {
+        function openClientDetail(button) {
+    document.getElementById('clientNameTitle').textContent = button.getAttribute('data-name');
+    document.getElementById('clientFullName').textContent = button.getAttribute('data-name');
+    document.getElementById('clientEmail').textContent = button.getAttribute('data-email');
+    document.getElementById('clientPhone').textContent = button.getAttribute('data-phone');
+    document.getElementById('clientJoinDate').textContent = button.getAttribute('data-created_at');
+    document.getElementById('clientAddress').textContent = button.getAttribute('data-address');
+    document.getElementById('clientZipCode').textContent = button.getAttribute('data-postal_code');
+    document.getElementById('clientCity').textContent = button.getAttribute('data-city');
+    document.getElementById('clientCountry').textContent = button.getAttribute('data-country');
+    document.getElementById('clientJoinDate').textContent = button.getAttribute('data-inscription');
+   
+    
+    document.getElementById('clientDetailModal').style.display = 'flex';
+}
 
-            console.log(id);
-               let clients=users.filter(user=>user.role=id);
-      console.log(clients); 
-            //   const client = clients[clientId];
-            // if (!client) return;
-
-        //    console.log(button.getAttribute('name'));
-            
-        //      document.getElementById('clientNameTitle').textContent = button.getAttribute('name');
-        //     document.getElementById('clientFullName').textContent = button.getAttribute('name');
-        //     document.getElementById('clientEmail').textContent = button.getAttribute('email');
-        //     document.getElementById('clientPhone').textContent = button.getAttribute('phone');
-        //     document.getElementById('clientJoinDate').textContent = button.getAttribute('created_at');
-        //     document.getElementById('clientAddress').textContent = button.getAttribute('address');
-        //     document.getElementById('clientZipCode').textContent = button.getAttribute('postal_code');
-        //     document.getElementById('clientCity').textContent = button.getAttribute('city');
-        //     document.getElementById('clientCountry').textContent = button.getAttribute('country');
-           
-            document.getElementById('clientDetailModal').style.display = 'flex';
-        }
 
        
         function closeClientDetail() {

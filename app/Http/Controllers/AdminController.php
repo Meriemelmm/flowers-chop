@@ -43,6 +43,14 @@ class AdminController extends Controller
         }
 
     }
+    public function statistique(){
+        $actifs=User::where('role','client')->where('is_ban',false)->count();
+        $banni=User::where([['role','client'],['is_ban',true]])->count();
+        $products=Produit::count();
+        
+
+      
+    }
    
     
 }

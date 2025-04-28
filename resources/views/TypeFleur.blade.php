@@ -7,77 +7,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('css/categories.css') }}">
   
-   
+   <style>
+    
+    
+   </style>
 
     
 </head>
 <body>
     <div class="dashboard-container">
         <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="logo">
-                <i class="fas fa-spa"></i>
-                <span>Fleurissima</span>
-            </div>
-            <nav class="sidebar-nav">
-                <ul>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-tachometer-alt"></i>
-                            <span>Tableau de bord</span>
-                        </a>
-                    </li>
-                    <li class="active">
-                        <a href="#">
-                            <i class="fas fa-store"></i>
-                            <span>Produits</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-shopping-basket"></i>
-                            <span>Commandes</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-users"></i>
-                            <span>Clients</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-chart-line"></i>
-                            <span>Statistiques</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-cog"></i>
-                            <span>Paramètres</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-folder-tree"></i>
-                            <span>categories</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            <div class="sidebar-footer">
-                <div class="user-profile">
-                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profile">
-                    <div class="user-info">
-                        <span class="user-name">Sophie Martin</span>
-                        <span class="user-role">Gérante</span>
-                    </div>
-                </div>
-                <button class="logout-btn">
-                    <i class="fas fa-sign-out-alt"></i>
-                </button>
-            </div>
-        </aside>
+       
+           @include('AdminNav')
+           
 
         <!-- Main Content -->
         <div class="main-content">
@@ -116,7 +58,7 @@
                                  
                                     <td>{{$type->type_name}}</td>
                                     
-                                    <td>
+                                    <td style="display:flex">
 
                                         <button class="btn-action btn-edit"  title="Modifier"   
                                          onclick="editTypes({{ $type->id }}, '{{ $type->type_name }}')">
