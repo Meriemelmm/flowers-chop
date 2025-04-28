@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Models\User;
+use App\Models\Produit;
+
 
 use Illuminate\Http\Request;
 
@@ -28,7 +30,7 @@ class AdminController extends Controller
         if($user){
             if($user->is_ban ==false){
                 $user->is_ban =true;
-                $user->save;
+                $user->save();
 
             }
             else{
@@ -41,5 +43,6 @@ class AdminController extends Controller
         }
 
     }
+   
     
 }
