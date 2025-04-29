@@ -31,7 +31,7 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="{{route('commande.total')}}">
                     <i class="fas fa-shopping-basket"></i>
                     <span>Commandes</span>
                 </a>

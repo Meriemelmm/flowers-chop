@@ -33,8 +33,8 @@
                      @foreach ($products as $product)
                     <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
                         <a href="{{route('Product.show',$product->id)}}" rel="noopener noreferrer">
-                        <div class="relative h-64">
-                            <img src="{{ asset('storage/' . $product->product_image) }}">
+                        <div class="relative h-64 overflow-hidden">
+                            <img src="{{ asset('storage/' . $product->product_image) }}" >
                            
                         </div>
                     </a>

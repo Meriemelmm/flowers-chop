@@ -228,4 +228,10 @@ class ProduitController extends Controller
        
         
     }
+    public function getProduct(){
+    $products=Produit::inRandomOrder()->take(6)->get();
+ $count= CartHelper::count();
+ return view('welcome',['products'=>$products,'count'=>$count]);
+ 
+}
 }

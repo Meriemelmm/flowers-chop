@@ -30,6 +30,73 @@
     }
   </script>
   <style>
+     :where([class^="ri-"])::before { content: "\f3c2"; }
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+        }
+        .hero-section {
+          background-image: url("{{ asset('section.png.jpg') }}");
+
+        background-size: cover;
+        background-position: center;
+        }
+        .category-card:hover .category-overlay {
+            opacity: 1;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .custom-checkbox {
+            position: relative;
+            cursor: pointer;
+        }
+        .custom-checkbox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: #fff;
+            border: 2px solid #e2e8f0;
+            border-radius: 4px;
+        }
+        .custom-checkbox:hover input ~ .checkmark {
+            border-color: #e84393;
+        }
+        .custom-checkbox input:checked ~ .checkmark {
+            background-color: #e84393;
+            border-color: #e84393;
+        }
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+        .custom-checkbox input:checked ~ .checkmark:after {
+            display: block;
+        }
+        .custom-checkbox .checkmark:after {
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
     .thumbnail {
       transition: all 0.3s ease;
     }
@@ -184,6 +251,7 @@
 
    
     @yield('content')
+    @include('components.footer');
 
     @yield('scripts')
     

@@ -53,7 +53,7 @@
                         <tbody>
                             @foreach($products as $product)
                             <tr>
-                                <td>#FL001</td>
+                                <td>#FL00{{$product->id}}</td>
                                 <td>
                                     <div class="product-img">
                                         <img src="{{ asset('storage/' . $product->product_image) }}" alt="Rose bouquet">

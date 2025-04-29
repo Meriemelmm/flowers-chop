@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/categories.css') }}">
     <link rel="stylesheet" href="{{ asset('css/users.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Commande.css') }}">
     
     <style>
         a {
@@ -30,7 +31,7 @@
     @yield('modals')
     @yield('scripts')
    
-    
+    <link rel="stylesheet" href="{{ asset('css/Commandes.css') }}">
 
 </body>
 </html>

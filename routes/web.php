@@ -8,7 +8,10 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TypeFleurController;
 use App\Http\Controllers\PanierController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CommandeController;
 
+use App\Http\Controllers\Commande;
+use App\Helpers\CartHelper;
 
     Route::get('register', [UserController::class, 'showRegister'])->name('register');
     Route::post('register', [UserController::class, 'register'])->name('register.store');
@@ -35,20 +38,26 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/payement', [PanierController::class, 'payement'])->name('payement');
     Route::get('/payment/success', [PanierController::class, 'paymentSuccess'])->name('payment.success');
     Route::get('/payment/cancel', [PanierController::class, 'paymentCancel'])->name('payment.cancel');
-    Route::get('Shop', [ProduitController::class, 'shop'])->name('shop.index');
+
     Route::resource('Panier', PanierController::class);
     
 
+//  commandes 
 
+
+Route::get('/commandes', [CommandeController::class, 'allCommandes'])->name('commande.total');
+
+Route::get('/Commandes',[CommandeController::class,'getCommande'])->name('commande.user');
 
     // Manage Users
     Route::get('Users',[AdminController::class,'users'])->name('Users.index');
     Route::delete('Users/{userId}',[AdminController::class,'deletUser'])->name('Users.delete');
     Route::post('Users/{id}',[AdminController::class,'banUser'])->name('Users.ban');
 });
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',[ProduitController::class,'getProduct']) ->name('home');
+
+Route::get('Shop', [ProduitController::class, 'shop'])->name('shop.index');
+
 
 
 ?>

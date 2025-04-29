@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use App\Models\Produit;
 
 class Commande extends Model
 {
@@ -10,12 +12,13 @@ class Commande extends Model
     protected $table='commandes';
     protected $fillable=['user_id','status','total_prix'];
     public function  client(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id');
     }
     public function livraison(){
         return $this->hasOne(livraison::class);
     }
     public function products(){
-     return $this ->belongsToMany(Produits::class);
+        return $this->belongsToMany(Produit::class, 'commande_produits', 'Product_id', 'Commande_id');
+
     }
 }

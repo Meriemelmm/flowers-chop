@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Models\User;
 use App\Models\Produit;
-
-
+use App\Models\Commande;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -46,7 +45,9 @@ class AdminController extends Controller
     public function statistique(){
         $actifs=User::where('role','client')->where('is_ban',false)->count();
         $banni=User::where([['role','client'],['is_ban',true]])->count();
+        $commandes = Commande::count();
         $products=Produit::count();
+        return view('dashboard.statistiques',);
         
 
       

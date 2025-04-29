@@ -44,47 +44,66 @@ class UserController  extends Controller
      */
     public function register(Request $request)
     {
-dd("test");
-
-        $validated =  $request->validate([
+        $isFirstUser = User::count() === 0;
+    
+        $rules = [
             'name' => 'required|string|max:255',
             'email' => 'required|unique:users|email|lowercase',
             'password' => 'required|string|min:8|confirmed',
-            'phone' => 'required|string|max:20',
-            'country' => 'required|string|max:255',
-            'address' => 'required|string|max:255',
-            'city' => 'required|string|max:255',
-            'postal_code' => 'required|string|max:10',
-
-        ]);
-
+        ];
+    
+        if (!$isFirstUser) {
+            $rules['phone'] = 'required|string|max:20';
+            $rules['country'] = 'required|string|max:255';
+            $rules['address'] = 'required|string|max:255';
+            $rules['city'] = 'required|string|max:255';
+            $rules['postal_code'] = 'required|string|max:10';
+        } else {
+            $rules['phone'] = 'nullable|string|max:20';
+            $rules['country'] = 'nullable|string|max:255';
+            $rules['address'] = 'nullable|string|max:255';
+            $rules['city'] = 'nullable|string|max:255';
+            $rules['postal_code'] = 'nullable|string|max:10';
+        }
+    
+        // Validation
+        $validated = $request->validate($rules);
+    
+        // Création de l'utilisateur
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => $validated['password'],
-            'phone' => $validated['phone'],
-            'country' => $validated['country'],
-            'address' => $validated['address'],
-            'city' => $validated['city'],
-            'role' => 'client',
-
-
-            'postal_code' => $validated['postal_code'],
+            'phone' => $validated['phone'] ,
+            'country' => $validated['country'] ,
+            'address' => $validated['address'] ,
+            'city' => $validated['city'] ,
+            'postal_code' => $validated['postal_code'] ,
+            'role' => $isFirstUser ? 'admin' : 'client',
         ]);
+    
         if ($user) {
             Auth::login($user);
-
+    
             if ($user->role === "client") {
+                Panier::create([
+                    'user_id' => $user->id
+                ]);
+    
+                return redirect('/');
 
-                $panier = Panier::create(['user_id' => $user->id]);
-                return redirect('/Shop');
             }
-
-            return "good job ";
-        } else {
-            return "not job ";
+    
+            return redirect('/Product'); 
         }
+    
+        return "Erreur lors de l'enregistrement.";
     }
+    
+
+
+
+
 
 
 
@@ -107,7 +126,7 @@ dd("test");
             $user = Auth::user(); // Get the logged-in user
     
             if ($user->role === 'admin') {
-                return redirect('/Product'); // Redirect admin to dashboard
+                return redirect('/Product'); 
             } else {
                 return redirect('/Shop'); // Redirect others (clients) to home
             }

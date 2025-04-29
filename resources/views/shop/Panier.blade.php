@@ -99,7 +99,8 @@
                     <div class="border-t border-gray-200 pt-4 mb-6">
                         <div class="flex justify-between text-lg font-semibold">
                             <span>Total</span>
-                            <span class="item-total text-primary">{{ $product->product_prix * $product->pivot->quantity }} €</span>
+                            <span class="item-total text-primary"> $product->product_prix * $product->pivot->quantity : 0 
+                            DH</span>
                         </div>
                     </div>
                     
@@ -136,7 +137,9 @@
 @section('scripts')
 
 
-    <script src="{{ asset('js/cart.js') }}"></script>
+    <script src="{{ asset('js/cart.js') }}">
+       
+</script>
 
  
 

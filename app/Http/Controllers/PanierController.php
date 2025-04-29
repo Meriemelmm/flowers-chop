@@ -118,7 +118,8 @@ public function index()
                   
                    
     
-                    return redirect()->route('Shop')->with('success', 'Produit ajouté au panier');
+                   return redirect()->route('shop.index')->with('success', 'Produit ajouté au panier');
+
                 } else {
                     return back()->with('error', 'Échec de l\'ajout du produit au panier.');
                 }
@@ -216,6 +217,7 @@ public function index()
 
     public function payement(Request $request)
 {
+   
     // Validate the request
     $validated = $request->validate([
         'total' => 'required|numeric|min:0',
@@ -229,13 +231,13 @@ public function index()
     
     // Get cart items for the current user
     $panier=Auth::user()->panier;
-    
-    $products =$panier->produit()->get() ;
-    
+
+    $products = $panier->Produits()->get() ;
+    // dd($products);
    
     $order = Commande::create([
         'user_id' => Auth::id(),
-        'total' => $validated['total'],
+        'total_prix' => $validated['total'],
         'status' => 'pending'
     ]);
     
@@ -308,7 +310,7 @@ public function paymentSuccess(Request $request)
                 $order->save();
 
                 $panier = Auth::user()->panier;
-                $panier->produit()->detach();
+                $panier->Produits()->detach();
 
                 return view('payment.success');
             }
@@ -316,6 +318,8 @@ public function paymentSuccess(Request $request)
     }
     
     return redirect()->route('shop.index')->with('error', 'Le paiement a échoué');
+
+
 }
 
 public function paymentCancel()
