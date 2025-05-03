@@ -37,7 +37,7 @@ class CategoryController extends Controller
         $category= Category::create(['category_name'=>$validated['category_name']]);
         // if($category){
 
-            return redirect()->route('categories.index')->with('success', 'Produit cree avec succès !');
+            return redirect()->route('categories.index')->with('success', 'categories cree avec succès !');
 
         // }
     }
@@ -74,7 +74,7 @@ class CategoryController extends Controller
         $categoryId->save();
         // if($update){
 
-            return redirect()->route('categories.index')->with('success', 'Produit modifier avec succès !');
+            return redirect()->route('categories.index')->with('success', 'category modifier avec succès !');
 
         // }
 
@@ -88,6 +88,6 @@ class CategoryController extends Controller
     {
         $category= Category::find($category);
         $category->delete();
-         return redirect()->route('categories.index')->with('success', 'Produit cree avec succès !');
+         return redirect()->route('categories.index')->with('success', 'category cree avec succès !');
     }
 }
