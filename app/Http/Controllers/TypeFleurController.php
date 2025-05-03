@@ -39,7 +39,7 @@ class TypeFleurController extends Controller
         $type= TypeFleur::create(['type_name'=>$validated['type_name']]);
         if($type){
 
-            return redirect()->route('TypeFleur.index')->with('success', 'Produit cree avec succès !');
+            return redirect()->route('TypeFleur.index')->with('success', 'type fleur  cree avec succès !');
 
         }
     }
@@ -67,14 +67,14 @@ class TypeFleurController extends Controller
     {
         if($TypeFleur){
              $validated = $request->validate([
-            'type_name' => ['required', 'string', 'regex:/^[A-Za-zÀ-ÿ\s]+$/', 'max:255'],
+            'type_name' => ['required', 'string'],
         ]);
         
         $TypeFleur->type_name=$validated['type_name'];
         $update=$TypeFleur->save();
         if($update){
 
-            return redirect()->route('TypeFleur.index')->with('success', 'Produit modifié avec succès !');
+            return redirect()->route('TypeFleur.index')->with('success', 'type fleur  modifié avec succès !');
 
         }
         }
@@ -89,7 +89,7 @@ class TypeFleurController extends Controller
         
         if($TypeFleur){
               $TypeFleur->delete();
-         return redirect()->route('TypeFleur.index')->with('success', 'Produit supprimé avec succès !');
+         return redirect()->route('TypeFleur.index')->with('success', 'type fleur  supprimé avec succès !');
       
         }
       
