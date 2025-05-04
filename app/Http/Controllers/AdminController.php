@@ -42,15 +42,16 @@ class AdminController extends Controller
         }
 
     }
-    public function statistique(){
-        $actifs=User::where('role','client')->where('is_ban',false)->count();
-        $banni=User::where([['role','client'],['is_ban',true]])->count();
+    public function statistique()
+    {
+        $actifs = User::where('role', 'client')->where('is_ban', false)->count();
+        $banni = User::where([['role', 'client'], ['is_ban', true]])->count();
         $commandes = Commande::count();
-        $products=Produit::count();
-        return view('dashboard.statistiques',);
-        
+        $products = Produit::count();
+     
+        $produitsEnStock = Produit::where('product_stock', '>', 0)->count(); 
 
-      
+        return view('dashboard.statistiques', compact('actifs', 'banni', 'commandes', 'products', 'produitsEnStock'));
     }
    
     
