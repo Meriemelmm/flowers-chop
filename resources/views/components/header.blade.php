@@ -4,6 +4,9 @@
         <nav class="hidden md:flex space-x-6">
             <a href="/" class="hover:text-primary transition-colors">Accueil</a>
             <a href="{{ route('shop.index') }}" class="text-primary font-medium">Boutique</a>
+            @auth
+            <a href="{{ route('commande.user') }}" class="text-primary font-medium">mes commandes </a>
+            @endauth
             <a href="#" class="hover:text-primary transition-colors">À propos</a>
             <a href="#" class="hover:text-primary transition-colors">Contact</a>
         </nav>

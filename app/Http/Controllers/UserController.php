@@ -123,17 +123,15 @@ class UserController  extends Controller
         ]);
     
         if (Auth::attempt($validated)) {
-            $user = Auth::user(); // Get the logged-in user
+            $user = Auth::user(); 
     
             if ($user->role === 'admin') {
                 return redirect('/Product'); 
             } else {
-                return redirect('/Shop'); // Redirect others (clients) to home
+                return redirect('/'); 
             }
     
-        } else {
-            return "Login failed!";
-        }
+        } 
     }
 
     public function logout(Request $request)

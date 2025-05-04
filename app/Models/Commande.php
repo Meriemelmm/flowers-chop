@@ -18,7 +18,7 @@ class Commande extends Model
         return $this->hasOne(livraison::class);
     }
     public function products(){
-        return $this->belongsToMany(Produit::class, 'commande_produits', 'Product_id', 'Commande_id');
-
+        return $this->belongsToMany(Produit::class, 'commande_produits', 'Commande_id', 'Product_id')->withPivot('quantity','price');
     }
+    
 }

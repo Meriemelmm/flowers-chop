@@ -73,15 +73,30 @@
                                             <div class="order-items"></div>
                                         </td>
                                         <td data-label="Statut">
-                                            <span class="order-status status-completed">{{$commande->status}}</span>
-                                        </td>
+    @if($commande->status === 'completed')
+        <span class="order-status status-completed">{{ $commande->status }}</span>
+    @elseif($commande->status === 'pending')
+        <span class="status-option option-pending">{{ $commande->status }}</span>
+    @else
+        <span class="status-option option-cancelled">{{ $commande->status }}</span>
+    @endif
+</td>
+
                                         <td data-label="Actions">
-                                            <button class="btn-action btn-view" onclick="openOrderDetail('ORD-2023-001')">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button class="btn-action btn-print">
-                                                <i class="fas fa-print"></i>
-                                            </button>
+                                        
+                                     
+
+    @if($commande->status !== 'cancelled' && $commande->status==="pending")
+    <form action="{{route('commande.cancel',['id'=>$commande->id])}}" method="POST" style="display:inline;">
+        @csrf
+        @method('PUT')
+        <button type="submit" class="btn-action btn-delete" onclick="return confirm('Annuler cette commande ?')">
+            <i class="fas fa-times-circle"></i>
+        </button>
+    </form>
+    @endif
+</td>
+
                                         </td>
                                     </tr>
                                     @endforeach

@@ -259,7 +259,8 @@ public function index()
                 ],
                 'unit_amount' => intval($product->product_prix * 100), // Convert to cents
             ],
-            'quantity' => 1,
+           'quantity' => $product->pivot->quantity
+
         ];
     }
     
@@ -311,19 +312,20 @@ public function paymentSuccess(Request $request)
 
                 $panier = Auth::user()->panier;
                 $panier->Produits()->detach();
+                $count = CartHelper::count();
 
-                return view('payment.success');
+                return view('payment.success',compact('count'));
             }
         }
     }
     
-    return redirect()->route('shop.index')->with('error', 'Le paiement a échoué');
+    return redirect()->route('Panier.index')->with('error', 'Le paiement a échoué');
 
 
 }
 
 public function paymentCancel()
 {
-    return redirect()->route('Panier.index')->with('warning', 'Paiement annulé');
+    return redirect()->route('Panier.index')->with('warning', 'Paiement cancel');
 }
 }

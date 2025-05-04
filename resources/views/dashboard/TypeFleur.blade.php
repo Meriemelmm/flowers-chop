@@ -8,10 +8,7 @@
             <div class="main-header">
                 <h1>Gestion des types</h1>
                 <div class="header-actions">
-                    <div class="search-box">
-                        <i class="fas fa-search"></i>
-                        <input type="text" placeholder="Rechercher un type...">
-                    </div>
+                   
                     <button class="btn btn-primary" onclick="opentypeModal()">
                         <i class="fas fa-plus"></i> Nouvelle type de fleur
                     </button>

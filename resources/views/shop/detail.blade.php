@@ -24,7 +24,7 @@
             <img src="{{ asset('storage/' . $product->product_image) }}" class="w-full h-full object-cover rounded" alt="{{ $product->product_name }}">
           </div>
           
-          <!-- Additional images thumbnails -->
+          
           @foreach($pictures as $picture)
           <div class="thumbnail w-20 h-20 object-cover rounded-lg border-2 border-gray-200 cursor-pointer hover:border-primary" 
                onclick="changeMainImage('{{ asset('storage/' . $picture->image) }}')">
@@ -40,14 +40,8 @@
           <h1 class="text-3xl font-semibold mb-2">{{ $product->product_name }}</h1>
           <p class="text-primary font-medium text-lg">{{ number_format($product->product_prix, 2, ',', ' ') }} €</p>
           <div class="flex items-center mt-2">
-            <div class="flex text-yellow-400 mr-2">
-              <i class="ri-star-fill"></i>
-              <i class="ri-star-fill"></i>
-              <i class="ri-star-fill"></i>
-              <i class="ri-star-fill"></i>
-              <i class="ri-star-half-fill"></i>
-            </div>
-            <span class="text-gray-500 text-sm">(24 avis)</span>
+        
+           
           </div>
           <p class="mt-4 text-gray-600">{{ $product->product_description ?? 'Un magnifique bouquet de fleurs parfait pour toutes les occasions spéciales.' }}</p>
         </div>
@@ -61,19 +55,18 @@
 </div>
 
 
- <form action="{{route('Panier.store')}}">
-          <div class="flex flex-col gap-4 mt-6">
-           
-            <input type="hidden" name="product_id" value="{{ $product->id }}">
+<form action="{{ route('Panier.store') }}" method="POST">
+  @csrf
+  <div class="flex flex-col gap-4 mt-6">
+    <input type="hidden" name="product_id" value="{{ $product->id }}">
+    <button type="submit" class="bg-primary text-white py-3 rounded-button text-lg font-medium hover:bg-pink-600 transition flex items-center justify-center gap-2">
+      <i class="ri-shopping-cart-2-line"></i>
+      Ajouter au Panier
+    </button>
+  </div>
+</form>
 
-            <button type="submit" class="bg-primary text-white py-3 rounded-button text-lg font-medium hover:bg-pink-600 transition flex items-center justify-center gap-2">
-              <i class="ri-shopping-cart-2-line"></i>
-              Ajouter au Panier
-            </button></form>
-            <!-- <button type="button" class="border border-primary text-primary py-3 rounded-button text-lg font-medium hover:bg-pink-50 transition flex items-center justify-center gap-2">
-              <i class="ri-heart-line"></i>
-              Ajouter à la Wishlist
-            </button> -->
+           
           </div>
        
 
@@ -108,10 +101,7 @@
           <button class="tab-button active py-4 px-6 text-center border-b-2 font-medium text-primary border-primary">
             Description
           </button>
-          <button class="tab-button py-4 px-6 text-center border-b-2 font-medium text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300">
-            Avis (24)
-          </button>
-        </nav>
+          
       </div>
       <div class="p-6">
         <div class="tab-content active">

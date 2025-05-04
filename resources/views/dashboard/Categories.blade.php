@@ -8,10 +8,7 @@
             <div class="main-header">
                 <h1>Gestion des Catégories</h1>
                 <div class="header-actions">
-                    <div class="search-box">
-                        <i class="fas fa-search"></i>
-                        <input type="text" placeholder="Rechercher une catégorie...">
-                    </div>
+                   
                     <button class="btn btn-primary" onclick="openCategoryModal()">
                         <i class="fas fa-plus"></i> Nouvelle Catégorie
                     </button>

@@ -12,19 +12,8 @@
             <!-- Zone d'affichage des produits -->
             <div class="flex-1">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
-                    <h1 class="text-2xl font-semibold mb-4 md:mb-0">Nos Fleurs <span class="text-gray-500 text-lg">(24 produits)</span></h1>
-                    <div class="custom-select w-full md:w-48">
-                        <div class="custom-select-selected" id="sortSelect">
-                            <span>Trier par: Popularité</span>
-                            <i class="ri-arrow-down-s-line"></i>
-                        </div>
-                        <div class="custom-select-options" id="sortOptions">
-                            <div class="custom-select-option" data-value="popularity">Popularité</div>
-                            <div class="custom-select-option" data-value="price-asc">Prix: croissant</div>
-                            <div class="custom-select-option" data-value="price-desc">Prix: décroissant</div>
-                            <div class="custom-select-option" data-value="newest">Nouveautés</div>
-                        </div>
-                    </div>
+                    <h1 class="text-2xl font-semibold mb-4 md:mb-0">Nos Fleurs </h1>
+                   
                 </div>
                 
                 <!-- Grille de produits -->
@@ -32,7 +21,7 @@
                     <!-- Produit 1 -->
                      @foreach ($products as $product)
                     <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
-                        <a href="{{route('Product.show',$product->id)}}" rel="noopener noreferrer">
+                        <a href="{{route('produit.afiche',$product->id)}}" rel="noopener noreferrer">
                         <div class="relative h-64 overflow-hidden">
                             <img src="{{ asset('storage/' . $product->product_image) }}" >
                            
@@ -42,13 +31,7 @@
                             <h3 class="font-medium text-lg mb-2">{{$product->product_name}}</h3>
                             <div class="flex justify-between items-center mb-3">
                                 <span class="text-primary font-semibold">{{$product->prix}}</span>
-                                <div class="flex">
-                                    <i class="ri-star-fill text-yellow-400"></i>
-                                    <i class="ri-star-fill text-yellow-400"></i>
-                                    <i class="ri-star-fill text-yellow-400"></i>
-                                    <i class="ri-star-fill text-yellow-400"></i>
-                                    <i class="ri-star-half-fill text-yellow-400"></i>
-                                </div>
+                               
                             </div>
                             <form action="{{route('Panier.store')}}"method="POST">
                             @csrf

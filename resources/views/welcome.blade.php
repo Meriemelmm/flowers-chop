@@ -18,76 +18,7 @@
     </section>
 
     <!-- Categories Section -->
-    <section class="py-16 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Nos Catégories</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Explorez notre sélection de fleurs magnifiques organisées par catégories pour trouver facilement ce que vous cherchez.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Category 1 -->
-                <div class="category-card rounded-lg overflow-hidden shadow-md relative group">
-                    <img src="https://readdy.ai/api/search-image?query=A%20beautiful%20bouquet%20of%20fresh%20roses%20in%20various%20shades%20of%20pink%20and%20red%2C%20arranged%20elegantly%20with%20some%20greenery%20and%20babys%20breath.%20The%20bouquet%20is%20photographed%20against%20a%20clean%2C%20light%20background%20that%20highlights%20the%20vibrant%20colors%20of%20the%20roses.%20The%20lighting%20is%20soft%20and%20natural%2C%20creating%20a%20romantic%20and%20elegant%20atmosphere.&width=600&height=400&seq=2&orientation=landscape" 
-                         alt="Roses" class="w-full h-64 object-cover object-top transition duration-300 transform group-hover:scale-105">
-                    <div class="category-overlay absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 transition duration-300">
-                        <div class="text-center p-4">
-                            <h3 class="text-white text-xl font-bold mb-2">Roses</h3>
-                            <a href="/Shop" class="inline-block bg-white text-primary px-4 py-2 rounded-button font-medium hover:bg-gray-100 transition whitespace-nowrap">Voir Plus</a>
-                        </div>
-                    </div>
-                    <div class="absolute bottom-0 left-0 right-0 bg-white bg-opacity-90 p-3">
-                        <h3 class="text-gray-900 font-bold text-lg">Roses</h3>
-                    </div>
-                </div>
-                
-                <!-- Category 2 -->
-                <div class="category-card rounded-lg overflow-hidden shadow-md relative group">
-                    <img src="https://readdy.ai/api/search-image?query=A%20stunning%20bouquet%20of%20mixed%20tulips%20in%20vibrant%20colors%20including%20yellow%2C%20purple%2C%20pink%2C%20and%20red.%20The%20tulips%20are%20arranged%20in%20a%20beautiful%20display%20with%20their%20long%20green%20stems%20visible.%20The%20background%20is%20clean%20and%20light%2C%20allowing%20the%20bright%20colors%20of%20the%20tulips%20to%20stand%20out.%20The%20lighting%20is%20bright%20and%20natural%2C%20highlighting%20the%20fresh%20and%20cheerful%20nature%20of%20these%20spring%20flowers.&width=600&height=400&seq=3&orientation=landscape" 
-                         alt="Tulipes" class="w-full h-64 object-cover object-top transition duration-300 transform group-hover:scale-105">
-                    <div class="category-overlay absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 transition duration-300">
-                        <div class="text-center p-4">
-                            <h3 class="text-white text-xl font-bold mb-2">Tulipes</h3>
-                            <a href="#" class="inline-block bg-white text-primary px-4 py-2 rounded-button font-medium hover:bg-gray-100 transition whitespace-nowrap">Voir Plus</a>
-                        </div>
-                    </div>
-                    <div class="absolute bottom-0 left-0 right-0 bg-white bg-opacity-90 p-3">
-                        <h3 class="text-gray-900 font-bold text-lg">Tulipes</h3>
-                    </div>
-                </div>
-                
-                <!-- Category 3 -->
-                <div class="category-card rounded-lg overflow-hidden shadow-md relative group">
-                    <img src="https://readdy.ai/api/search-image?query=An%20elegant%20arrangement%20of%20white%20and%20cream%20orchids%20with%20their%20delicate%2C%20exotic%20blooms%20displayed%20prominently.%20The%20orchids%20are%20arranged%20with%20minimal%20greenery%20to%20highlight%20their%20unique%20shapes%20and%20natural%20beauty.%20The%20background%20is%20neutral%20and%20soft%2C%20creating%20a%20sophisticated%20and%20luxurious%20feel.%20The%20lighting%20is%20gentle%20and%20diffused%2C%20emphasizing%20the%20delicate%20texture%20and%20translucent%20quality%20of%20the%20orchid%20petals.&width=600&height=400&seq=4&orientation=landscape" 
-                         alt="Orchidées" class="w-full h-64 object-cover object-top transition duration-300 transform group-hover:scale-105">
-                    <div class="category-overlay absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 transition duration-300">
-                        <div class="text-center p-4">
-                            <h3 class="text-white text-xl font-bold mb-2">Orchidées</h3>
-                            <a href="#" class="inline-block bg-white text-primary px-4 py-2 rounded-button font-medium hover:bg-gray-100 transition whitespace-nowrap">Voir Plus</a>
-                        </div>
-                    </div>
-                    <div class="absolute bottom-0 left-0 right-0 bg-white bg-opacity-90 p-3">
-                        <h3 class="text-gray-900 font-bold text-lg">Orchidées</h3>
-                    </div>
-                </div>
-                
-                <!-- Category 4 -->
-                <div class="category-card rounded-lg overflow-hidden shadow-md relative group">
-                    <img src="https://readdy.ai/api/search-image?query=A%20beautiful%20bouquet%20of%20seasonal%20flowers%20featuring%20a%20mix%20of%20daisies%2C%20sunflowers%2C%20lavender%2C%20and%20wildflowers%20in%20a%20rustic%20arrangement.%20The%20bouquet%20has%20a%20natural%2C%20garden-picked%20appearance%20with%20various%20textures%20and%20heights.%20The%20background%20is%20light%20and%20neutral%2C%20allowing%20the%20colorful%20mix%20of%20flowers%20to%20be%20the%20focal%20point.%20The%20lighting%20is%20bright%20and%20natural%2C%20giving%20the%20arrangement%20a%20fresh%2C%20summery%20feel.&width=600&height=400&seq=5&orientation=landscape" 
-                         alt="Fleurs Saisonnières" class="w-full h-64 object-cover object-top transition duration-300 transform group-hover:scale-105">
-                    <div class="category-overlay absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 transition duration-300">
-                        <div class="text-center p-4">
-                            <h3 class="text-white text-xl font-bold mb-2">Fleurs Saisonnières</h3>
-                            <a href="#" class="inline-block bg-white text-primary px-4 py-2 rounded-button font-medium hover:bg-gray-100 transition whitespace-nowrap">Voir Plus</a>
-                        </div>
-                    </div>
-                    <div class="absolute bottom-0 left-0 right-0 bg-white bg-opacity-90 p-3">
-                        <h3 class="text-gray-900 font-bold text-lg">Fleurs Saisonnières</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+   
 
     <!-- Featured Products Section -->
     <section class="py-16 bg-gray-50">
@@ -113,13 +44,7 @@
                             <div class="p-4">
                                 <h3 class="text-lg font-bold text-gray-900 mb-2">{{$product->product_name}}</h3>
                                 <div class="flex items-center mb-2">
-                                    <div class="flex text-yellow-400">
-                                        <i class="ri-star-fill"></i>
-                                        <i class="ri-star-fill"></i>
-                                        <i class="ri-star-fill"></i>
-                                        <i class="ri-star-fill"></i>
-                                        <i class="ri-star-half-fill"></i>
-                                    </div>
+                               
                                     <span class="text-gray-500 text-sm ml-2">(24 avis)</span>
                                 </div>
                                 <div class="flex justify-between items-center mt-4">

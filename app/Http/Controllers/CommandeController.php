@@ -6,24 +6,21 @@ use Illuminate\Http\Request;
 use App\Models\Produit;
 use App\Helpers\CartHelper;
 use App\Models\Commande;
+use App\Models\CommandeProduit;
+use Illuminate\Support\Facades\Auth;
 
 class CommandeController extends Controller
 {
     
     public function getCommande(){
        
-        $commande = Commande::where('user_id', Auth::user()->id)->first();
+        $commandes = Commande::where('user_id', Auth::id())
+        ->with('products')
+        ->paginate(10);
     
-      
-        if (!$commande) {
-            return redirect()->route('shop.index')->with('error', 'Aucune commande trouvée.');
-        }
-    
-      
-        $commandes = CommandeProduit::where('commande_id', $commande->id)->get();
-    
-       
-        return view('shop.Commande', compact('commandes'));
+    $count = CartHelper::count();
+
+    return view('shop.Commande', compact('commandes', 'count'));
     }
     
      public function allCommandes(){

@@ -31,10 +31,10 @@
     <div class="container mx-auto px-4 py-4 flex items-center justify-between">
       <a href="#" class="text-3xl font-['Pacifico'] text-primary">Merylowers</a>
       <nav class="hidden md:flex space-x-6">
-        <a href="#" class="hover:text-primary transition-colors">Accueil</a>
-        <a href="#" class="hover:text-primary transition-colors">Boutique</a>
-        <a href="#" class="hover:text-primary transition-colors">À propos</a>
-        <a href="#" class="hover:text-primary transition-colors">Contact</a>
+      <a href="/" class="hover:text-primary transition-colors">Accueil</a>
+        <a href="/Shop" class="hover:text-primary transition-colors">Boutique</a>
+        <a href="/Propos" class="hover:text-primary transition-colors">À propos</a>
+        <a href="/Contact" class="hover:text-primary transition-colors">Contact</a>
       </nav>
     </div>
   </header>

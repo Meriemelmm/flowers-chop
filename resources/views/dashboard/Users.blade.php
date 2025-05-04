@@ -8,10 +8,6 @@
                 <h1>Gestion des Clients</h1>
                 <div class="header-actions">
                     
-                    <div class="search-box">
-                        <input type="text" placeholder="Rechercher un client...">
-                        <i class="fas fa-search"></i>
-                    </div>
                 </div>
             </header>
 

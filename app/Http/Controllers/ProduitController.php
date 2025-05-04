@@ -31,10 +31,12 @@ class ProduitController extends Controller
     public function shop()
     {
 
-        $products = Produit::paginate(2);
+        $products = Produit::paginate(10);
         $count = CartHelper::count();
+        $types = TypeFleur::all();
+        $categories = Category::all();
         
-        return view('shop.Shop',['products'=>$products,'count'=>$count]);
+        return view('shop.Shop',['products'=>$products,'count'=>$count,'types'=>$types,'categories'=>$categories]);
        
     }
 
@@ -96,15 +98,16 @@ class ProduitController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($produit)
-    {
-        $product = Produit::findOrfail($produit);
-        
-          $pictures = $product->pectures;
-          $count = CartHelper::count();
+   
+     public function afiche($produit)
+     {
+         $product = Produit::findOrfail($produit);
          
-       return view("shop.detail" , compact("product","pictures",'count'));
-    }
+           $pictures = $product->pectures;
+           $count = CartHelper::count();
+          
+        return view("shop.detail" , compact("product","pictures",'count'));
+     }
 
     /**
      * Show the form for editing the specified resource.

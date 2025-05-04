@@ -7,7 +7,7 @@
     <nav class="sidebar-nav">
         <ul>
             <li>
-                <a href="#">
+                <a href="{{route('static')}}">
                     <i class="fas fa-tachometer-alt"></i>
                     <span>Tableau de bord</span>
                 </a>

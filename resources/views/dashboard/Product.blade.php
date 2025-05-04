@@ -9,30 +9,13 @@
             <button class="btn btn-primary" id="addProductBtn">
                 <i class="fas fa-plus"></i> Ajouter un produit
             </button>
-            <div class="search-box">
-                <input type="text" placeholder="Rechercher un produit...">
-                <i class="fas fa-search"></i>
-            </div>
+          
         </div>
     </header>
 
     <div class="content-wrapper">
         <!-- Product Table -->
-        <div class="card">
-            <div class="card-header">
-                <h2>Liste des produits</h2>
-                <div class="card-actions">
-                    <select class="filter-select">
-                        <option>Tous les catégories</option>
-                        <option>Bouquets</option>
-                        <option>Plantes</option>
-                        <option>Fleurs coupées</option>
-                        <option>Compositions</option>
-                    </select>
-                    <button class="btn btn-secondary">
-                        <i class="fas fa-filter"></i> Filtrer
-                    </button>
-                </div>
+    
             </div>
             <div class="card-body">
                 <div class="table-responsive">
