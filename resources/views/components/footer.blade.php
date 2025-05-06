@@ -67,7 +67,7 @@
                             <div class="w-5 h-5 flex items-center justify-center mr-3">
                                 <i class="ri-mail-line text-primary"></i>
                             </div>
-                            <span class="text-gray-400">contact@merylowers.fr</span>
+                            <span class="text-gray-400">contact@merylowers.com<</span>
                         </li>
                         <li class="flex items-center">
                             <div class="w-5 h-5 flex items-center justify-center mr-3">

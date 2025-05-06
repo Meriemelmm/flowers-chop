@@ -38,7 +38,7 @@
       <div class="flex-1 space-y-6">
         <div>
           <h1 class="text-3xl font-semibold mb-2">{{ $product->product_name }}</h1>
-          <p class="text-primary font-medium text-lg">{{ number_format($product->product_prix, 2, ',', ' ') }} €</p>
+          <p class="text-primary font-medium text-lg">{{ number_format($product->product_prix, 2, ',', ' ') }} DH </p>
           <div class="flex items-center mt-2">
         
            

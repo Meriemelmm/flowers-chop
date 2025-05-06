@@ -52,12 +52,24 @@ Route::middleware(['auth'])->group(function () {
     
 });
 Route::get('/', [ProduitController::class, 'getProduct'])->name('home');
+
 Route::get('register', [UserController::class, 'showRegister'])->name('register');
 Route::post('register', [UserController::class, 'register'])->name('register.store');
 Route::get('login', [UserController::class, 'showLogin'])->name('login.show');
 Route::post('login', [UserController::class, 'login'])->name('login');
 Route::get('Shop', [ProduitController::class, 'shop'])->name('shop.index');
 Route::get('/detail/{produit}', [ProduitController::class, 'afiche'])->name('produit.afiche');
+// Route pour la page "À propos"
+Route::get('/about', function () {
+    $count= CartHelper::count();
+    return view('Propos',compact('count')); 
+})->name('about');
+Route::get('/contact', function () {
+    $count= CartHelper::count();
+    return view('Contact',compact('count')); 
+})->name('contact');
+
+
 
 
 

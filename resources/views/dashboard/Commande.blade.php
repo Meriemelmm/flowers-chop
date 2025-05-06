@@ -5,36 +5,10 @@
 @section('content')
 <header class="main-header">
                 <h1>Gestion des Commandes</h1>
-                <div class="header-actions">
-                    <div class="search-box">
-                        <input type="text" placeholder="Rechercher une commande...">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    <button class="btn btn-secondary">
-                        <i class="fas fa-filter"></i> Filtres
-                    </button>
-                </div>
+              
             </header>
             <div class="content-wrapper">
-                <!-- Orders Table -->
-                <div class="card">
-                    <div class="card-header">
-                        <h2>Liste des commandes récentes</h2>
-                        <div class="card-actions">
-                            <select class="filter-select">
-                                <option>Tous les statuts</option>
-                                <option>En attente</option>
-                                <option>En traitement</option>
-                                <option>Complétée</option>
-                                <option>Annulée</option>
-                            </select>
-                            <select class="filter-select">
-                                <option>Derniers 7 jours</option>
-                                <option>Aujourd'hui</option>
-                                <option>Ce mois</option>
-                                <option>Toutes les dates</option>
-                            </select>
-                        </div>
+             
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">

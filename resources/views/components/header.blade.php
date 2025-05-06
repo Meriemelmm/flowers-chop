@@ -7,8 +7,8 @@
             @auth
             <a href="{{ route('commande.user') }}" class="text-primary font-medium">mes commandes </a>
             @endauth
-            <a href="#" class="hover:text-primary transition-colors">À propos</a>
-            <a href="#" class="hover:text-primary transition-colors">Contact</a>
+            <a href="{{route('about')}}" class="hover:text-primary transition-colors">À propos</a>
+            <a href="{{route('contact')}}" class="hover:text-primary transition-colors">Contact</a>
         </nav>
         <div class="flex items-center space-x-4">
             <div class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 cursor-pointer transition-colors">

@@ -86,59 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // const checkoutButton = document.querySelector('.w-full.py-3.bg-primary.text-white.font-medium.rounded-button');
-    // if (checkoutButton) {
-    //     checkoutButton.addEventListener('click', function(e) {
-    //         e.preventDefault();
-    //         console.log("total");
-    //         // Check if terms 
-    //         const termsCheckbox = document.getElementById('terms');
-    //         if (!termsCheckbox.checked) {
-    //             alert('Veuillez accepter les conditions générales');
-    //             return;
-    //         }
-            
-    //         // Get the total amount 
-    //         const totalElement = document.querySelector('.item-total.text-primary');
-    //         const total = parseFloat(totalElement.textContent.replace('€', '').trim());
-         
-            
-    //         // Get CSRF token
-    //         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            
-    //         // Send AJAX request to payment
-    //         fetch('/payement', {
-    //             method: 'POST',
-    //             headers: {
-    //                 'X-CSRF-TOKEN': csrfToken,
-    //                 'Content-Type': 'application/json',
-    //                 'Accept': 'application/json'
-    //             },
-    //             body: JSON.stringify({ 
-    //                 total: total,
-    //                 note: document.querySelector('textarea').value // Include order note if needed
-    //             })
-    //         })
-    //         .then(response => {
-    //             if (!response.ok) {
-    //                 throw new Error('Problème lors du traitement du paiement');
-    //             }
-    //             return response.json();
-    //         })
-    //         .then(data => {
-    //             // Redirect to payment confirmation or processing page
-    //             if (data.redirect) {
-    //                 window.location.href = data.redirect;
-    //             } else {
-    //                 console.log("Paiement initié avec succès", data);
-    //             }
-    //         })
-    //         .catch(error => {
-    //             console.error("Erreur :", error);
-    //             alert("Une erreur est survenue lors du traitement de votre paiement");
-    //         });
-    //     });
-    // }
+   
 
 
     const checkoutButton = document.querySelector('.w-full.py-3.bg-primary.text-white.font-medium.rounded-button');

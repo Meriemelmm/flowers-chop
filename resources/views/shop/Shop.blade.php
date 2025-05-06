@@ -7,7 +7,7 @@
     <div class="container mx-auto px-4 py-8">
         <div class="flex flex-col md:flex-row gap-8">
             <!-- Sidebar filtres -->
-            @include('components.filter-product')
+          
             
             <!-- Zone d'affichage des produits -->
             <div class="flex-1">
@@ -30,7 +30,7 @@
                         <div class="p-4">
                             <h3 class="font-medium text-lg mb-2">{{$product->product_name}}</h3>
                             <div class="flex justify-between items-center mb-3">
-                                <span class="text-primary font-semibold">{{$product->prix}}</span>
+                                <span class="text-primary font-semibold">{{$product->product_prix}}  DH </span>
                                
                             </div>
                             <form action="{{route('Panier.store')}}"method="POST">
