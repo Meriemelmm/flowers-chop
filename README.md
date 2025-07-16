@@ -1,5 +1,10 @@
 Merylowers - Boutique de Fleurs E-commerce
-Description
+
+
+
+
+
+
 Merylowers est une plateforme e-commerce moderne pour la vente de fleurs en ligne. La plateforme permet aux utilisateurs de visualiser différents types de fleurs, de les ajouter au panier et de passer des commandes facilement. Elle dispose d'une interface claire et conviviale, d'options de paiement sécurisées, ainsi que d'un panneau d'administration pour gérer les produits et les commandes.
 
 Fonctionnalités côté administrateur :
